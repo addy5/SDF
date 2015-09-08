@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Google Maps API</title>
+        <title>SDF</title>
         <!-- Bootstrap -->
 
 
@@ -25,7 +25,7 @@
 
       <!-- NAVBAR -->
       <ul class="navBar">
-        <a href="/"> <li class="navItem"> Sygns </li> </a>
+        <a href="/"> <li class="navItem"> SDF </li> </a>
         <a href="/map"> <li class="navItem"> Map </li> </a>
         <a href="/edit"> <li class="navItem"> Account </li> </a>
         <a href="/help"> <li class="navItem"> Help </li> </a>
@@ -38,6 +38,55 @@
 
       <!--*********** LOGO AND TITLE ***********-->
       <h1>SDF</h1>
+
+
+      <!--*********** BUY ***********-->
+      <div class="buy" style="min-width:700px; width:80%; min-height:400px; border:1px solid grey; margin: 20px auto; margin-bottom:50px;">
+        <h3>Buy</h3>
+
+        <div style="position: relative; height: 60px;">
+          <p style="display:inline-block; position:absolute; width:100px; height: 40px; vertical-align:top; left:10%; margin-right: 10px; line-height:40px;">
+            Funds Available:
+          </p>
+          <p class="balance" style="display:inline-block; position:absolute; line-height: 40px; height:30px; width: 70px; border: 1px solid grey; vertical-align:top; left:210px;"></p>
+        </div>
+
+        <div style="position: relative; height: 60px;">
+          <p style="display:inline-block; position:absolute; width:100px; height: 40px; vertical-align:top; left:10%; margin-right: 5px; line-height:40px;">
+            Search Security:
+          </p>
+          <input class="query" style="display:inline-block; position:absolute; line-height: 40px; height:30px; width: 100px; top:30%; border: 1px solid grey; vertical-align:top; left:200px; line-height:30px; font-size:16px;" placeholder="AAPL"></input>
+
+          <button class="search" style="display:inline-block; position:absolute; line-height: 40px; height:34px; width: 60px; top:30%; border: 1px solid grey; vertical-align:top; left:330px; line-height:30px; font-size:15px; background-color:rgba(0,150,136,1); color:white; border-radius:3px; border:none;" >search</button>
+        </div>
+
+        <div style="position: relative; border: 1px solid grey; height: 80px; margin-top:20px; padding-top:15px; display:inline-block; width:90%;">
+            <table style="width:100%">
+              <tr>
+                <td class="header">Symbol</td>
+                <td class="header">Name</td>
+                <td class="header">Price</td>
+                <td class="header">Volume</td>
+                <td class="header">Daily High</td>
+                <td class="header">Daily Low</td>
+                <td class="header">Yearly High</td>
+                <td class="header">Yearly Low</td>
+              </tr>
+              <tr>
+                <td class="results symbol"></td>
+                <td class="results name"></td>
+                <td class="results price"></td>
+                <td class="results volume"></td>
+                <td class="results dailyHigh"></td>
+                <td class="results dailyLow"></td>
+                <td class="results yearlyHigh"></td>
+                <td class="results yearlyLow"></td>
+              </tr>
+            </table>
+        </div>
+      </div>
+
+
 
 
       <!--**************** FOOTER *******************-->

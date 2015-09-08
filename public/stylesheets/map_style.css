@@ -124,6 +124,16 @@ input{
     width: 100px; /* width of the spinner gif */
     height: 102px; /*hight of the spinner gif +2px to fix IE8 issue */
 }
+
+.header{
+  border-bottom: 1px solid grey;
+  padding-bottom: 10px;
+  width: 12%;
+}
+
+.results{
+  padding:10px;
+}
 /* ------------loading icon animation------------------ */
 
 /* ------------INCREASE MAP SIZE FOR WEB BROWSERS------------------ */

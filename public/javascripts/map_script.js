@@ -46,5 +46,41 @@ $(document).ready(function() {
       $(this).css('backgroundColor',"inherit");
     });
 
+    //STOCK SEARCH LISTENER AND FUNCTIONS:
+    var query = $('.query');
+    var searchButton = $('.search');
+    var symbol = $('.symbol');
+    var name = $('.name');
+    var price = $('.price');
+    var volume = $('.volume');
+    var dailyHigh = $('.dailyHigh');
+    var dailyLow = $('.dailyLow');
+    var yearlyHigh = $('.yearlyHigh');
+    var yearlyLow = $('.yearlyLow');
+
+    searchButton.on('click', runQuote);
+
+    function runQuote(){
+      var baseURL = 'https://query.yahooapis.com/v1/public/yql?q=';
+      var queryParams = 'select * from yahoo.finance.quote where symbol in ("'+ query.val() +'")';
+      var queryString = encodeURI(baseURL + queryParams);
+      var apiCall = queryString + '&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
+
+      var dataToPlot = [['Date','Value']];
+
+      $.getJSON(apiCall, function(data){
+          console.log(data.query.results.quote);
+          symbol.text(data.query.results.quote.Symbol);
+          name.text(data.query.results.quote.Name);
+          price.text(data.query.results.quote.LastTradePriceOnly);
+          volume.text(data.query.results.quote.Volume);
+          dailyHigh.text(data.query.results.quote.DaysHigh);
+          dailyLow.text(data.query.results.quote.DaysLow);
+          yearlyHigh.text(data.query.results.quote.YearHigh);
+          yearlyLow.text(data.query.results.quote.YearLow);
+        });
+
+    }
+
 
 }); //CLOSE JQUERY ON PAGE LOAD FUNCTION
