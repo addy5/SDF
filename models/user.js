@@ -11,7 +11,7 @@ var UserSchema = new Schema({
   password : { type: String, required: true, select: false },
   holdings: [],
   history: [],
-  balance: Number
+  balance: {type: Number, default: 50000}
 });
 
 //****** RUN THIS FUNCTION WHENEVER SAVING USER TO DATABASE ***

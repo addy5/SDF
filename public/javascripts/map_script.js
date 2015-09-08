@@ -1,3 +1,34 @@
+//LOAD GOOGLE VISUALIZATION:
+google.load("visualization", "1", {packages:["corechart"]});
+var buyChart = $('#buyChart');
+
+function drawChart(a,b,c,d,e) {
+
+  buyChart.fadeIn('slow');
+
+  var data = google.visualization.arrayToDataTable(
+    [  ['Data', 'Price'],
+   [ 'current', a],
+   [ 'day_high', b],
+   [ 'day_low', c],
+   [ 'year_high', d],
+   [ 'year_low', e]]
+  );
+
+  var options = {
+    title: 'Security Price Overview',
+    vAxis: {title: 'Price', minValue: 0},
+    legend: 'none',
+    colors: ['#009688']
+  };
+
+  var chart = new google.visualization.ScatterChart(document.getElementById('buyChart'));
+
+  chart.draw(data, options);
+}
+
+
+
 //CAPITALIIZE PROTOTYPE FOR STRINGS (USED TO CAPITALIZE DAYS):
 String.prototype.capitalize = function(){
   var wordNoFirstLetter = [];
@@ -46,6 +77,17 @@ $(document).ready(function() {
       $(this).css('backgroundColor',"inherit");
     });
 
+    //IMMEDIATE AJAX CALL TO FILL USER ACCOUNT INFO:
+    var balance = $('.balance');
+    $.ajax({
+      method: "get",
+      url: "/users/placeholder", //WILL BE USING TOKEN TO FIND USER IN CONTROLLER
+      success: function(data){
+        console.log(data);
+        balance.text('$' + data.balance);
+      }
+    });
+
     //STOCK SEARCH LISTENER AND FUNCTIONS:
     var query = $('.query');
     var searchButton = $('.search');
@@ -60,13 +102,17 @@ $(document).ready(function() {
 
     searchButton.on('click', runQuote);
 
+    query.on('keypress', function (e) {
+      var key = e.which || e.keyCode;
+      if (key === 13) return runQuote();
+      return null;
+    });
+
     function runQuote(){
       var baseURL = 'https://query.yahooapis.com/v1/public/yql?q=';
       var queryParams = 'select * from yahoo.finance.quote where symbol in ("'+ query.val() +'")';
       var queryString = encodeURI(baseURL + queryParams);
       var apiCall = queryString + '&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
-
-      var dataToPlot = [['Date','Value']];
 
       $.getJSON(apiCall, function(data){
           console.log(data.query.results.quote);
@@ -78,9 +124,29 @@ $(document).ready(function() {
           dailyLow.text(data.query.results.quote.DaysLow);
           yearlyHigh.text(data.query.results.quote.YearHigh);
           yearlyLow.text(data.query.results.quote.YearLow);
+
+          setTimeout(drawChart(parseFloat(data.query.results.quote.LastTradePriceOnly),parseFloat(data.query.results.quote.DaysHigh),parseFloat(data.query.results.quote.DaysLow),parseFloat(data.query.results.quote.YearHigh),parseFloat(data.query.results.quote.YearLow)),100);
         });
 
     }
 
+    //BUY FUNCTIONS AND HANDLERS:
+    var buyButton = $('.buyButton');
+    var background = $('.background');
+    var buyModal = $('.buyModal');
+    var modalTitle = $('.modalTitle');
+    var modalDetails = $('.modalDetails');
+
+    buyButton.on('click', function(){
+      background.fadeIn('slow');
+      buyModal.fadeIn('slow');
+      modalTitle.text('Purchasing ' + name.text());
+      modalDetails.text('@price of $' + price.text() + ' per share');
+    });
+
+    background.on('click', function(){
+      background.fadeOut('slow');
+      buyModal.fadeOut('slow');
+    });
 
 }); //CLOSE JQUERY ON PAGE LOAD FUNCTION
