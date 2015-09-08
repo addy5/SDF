@@ -1,0 +1,230 @@
+body{
+  text-align: center;
+  font-family: 'Abel', sans-serif;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  height: 43px;
+  padding-left: 40px;
+  background-color: #2D3E50;
+}
+
+li {
+  display: inline-block;
+  line-height: 43px;
+  min-width: 90px;
+  text-align: center;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  float:left;
+  color:white;
+  background-color: #2D3E50;
+  font-size: 18px;
+}
+
+a{
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+.login{
+  position: absolute;
+  right:20px;
+  line-height: 40px;
+}
+
+input{
+  width: 150px;
+  height: 20px;
+  border-radius: 3px;
+  margin: 0 0 0 10px;
+  font-size: 13px;
+  text-align: left;
+  padding-left: 5px;
+  border: 1px solid grey;
+}
+
+.loginButton{
+  margin-left: 0;
+  border-radius: 3px;
+  border: 1px solid grey;
+  height:23px;
+  position: relative;
+  background-color: transparent;
+  color:white;
+  font-size: 15px;
+  line-height: 12px;
+  font-family: 'Abel', sans-serif;
+}
+
+.banner{
+  width: 100%;
+  height:380px;
+  background-size: cover;
+  background-image: url('images/streetFilt.jpg');
+  text-align: center;
+  /*background: black;
+  background: linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,.4));
+  transition: height .5s;*/
+}
+
+.banner h2{
+  display:inline-block;
+  color:white;
+  font-size: 40px;
+  margin-top: 120px;
+}
+
+.homeButton{
+  height: 35px;
+  width: 15%;
+  min-width: 130px;
+  background-color: yellow;
+  font-size: 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  color:#312F2F;
+  margin-top: 50px;
+  border:none;
+}
+
+.footer{
+  height: 90px;
+  width: 100%;
+  background-color: #1F1F1F;
+  text-align: center;
+}
+
+.footerBar{
+  background-color: #333333;
+  height:30px;
+  width: 100%;
+}
+
+.footerContact{
+  color: #B3B3B3;
+  line-height: 90px;
+  font-size: 20px;
+}
+
+.container{
+  text-align: center;
+  position: relative;
+  font-family: 'Abel', sans-serif;
+  margin-bottom: 30px;
+}
+.container h3{
+  font-size: 32px;
+  margin: 5px auto;
+  margin-top: 30px;
+}
+
+.container h5{
+  font-size: 22px;
+  margin: 5px auto;
+  color: #999999;
+}
+
+.container p{
+  width: 50%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.module{
+  width: 250px;
+  height: 250px;
+  /*border: 1px solid grey;*/
+  display: inline-block;
+  margin: 25px;
+  position: relative;
+}
+
+.moduleIcons{
+  width: 110px;
+  vertical-align: top;
+  position: absolute;
+  left: 50%;
+  margin-left: -55px;
+}
+
+.moduleDetails{
+  position: absolute;
+  bottom: 15%;
+  font-size: 20px;
+}
+
+/*SIGN UP SPECIFIC CSS*/
+h1{
+  font-weight: bold;
+  font-size: 36px;
+}
+
+.form-group{
+  width: 30%;
+  min-width: 480px;
+  height: 50px;
+  margin: 10px auto;
+  position: relative;
+}
+
+.buttons{
+  height: 130px;
+  margin-bottom: 50px;
+}
+
+.form-label{
+  font-size: 18px;
+  position: absolute;
+  left:10%;
+  top: 25%;
+  text-align: right;
+  width: 150px;
+}
+
+.form-control{
+  height: 40px;
+  width: 200px;
+  position: absolute;
+  right: 10%;
+}
+
+#updateButton{
+  width: 15%;
+  min-width: 190px;
+  height:40px;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 30px;
+  background-color: #00008B;
+  margin: 10px auto;
+  border: none;
+  display: block;
+  position: absolute;
+  right: 10%;
+}
+
+#deleteButton{
+  width: 15%;
+  min-width: 190px;
+  height:40px;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 30px;
+  background-color: #D9534F;
+  margin: 10px auto;
+  border: none;
+  display: block;
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+}
