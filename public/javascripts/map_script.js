@@ -40,12 +40,11 @@ $(document).ready(function() {
     }
 
     //NAVBAR HIGHLIGHTER:
-    $(".navItem").mouseover(function(){
+    $("li").mouseover(function(){
       $(this).css('backgroundColor',"rgba(0,150,136,1)");
     }).mouseout(function(){
       $(this).css('backgroundColor',"inherit");
     });
-
 
 
 }); //CLOSE JQUERY ON PAGE LOAD FUNCTION

@@ -7,21 +7,21 @@ ul {
   margin: 0;
   padding: 0;
   position: relative;
-  height: 43px;
+  height: 50px;
   padding-left: 40px;
-  background-color: #2D3E50;
+  background-color: rgba(45,45,45,0.93);
 }
 
 li {
   display: inline-block;
-  line-height: 43px;
-  min-width: 90px;
+  line-height: 50px;
+  min-width: 110px;
   text-align: center;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
   float:left;
   color:white;
-  background-color: #2D3E50;
+  background-color: inherit;
   font-size: 18px;
 }
 
@@ -34,7 +34,7 @@ a{
 .login{
   position: absolute;
   right:20px;
-  line-height: 40px;
+  line-height: 50px;
 }
 
 input{
@@ -59,6 +59,37 @@ input{
   font-size: 15px;
   line-height: 12px;
   font-family: 'Abel', sans-serif;
+}
+
+.banner{
+  width: 100%;
+  height:400px;
+  background-size: cover;
+  background-image: url('images/nyse.jpg');
+  text-align: center;
+  /*background: black;
+  background: linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,.4));
+  transition: height .5s;*/
+}
+
+.banner h2{
+  display:inline-block;
+  color:white;
+  font-size: 40px;
+  margin-top: 120px;
+}
+
+.homeButton{
+  height: 35px;
+  width: 15%;
+  min-width: 130px;
+  background-color: rgba(0,150,136,1);
+  font-size: 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  color:white;
+  margin-top: 50px;
+  border:none;
 }
 
 .footer{
@@ -108,7 +139,7 @@ input{
 }
 
 .slideControl1{
-  background-color: rgba(45,62,80,0.8);
+  background-color: rgba(0,150,136,1);
 }
 
 .contactContainer{

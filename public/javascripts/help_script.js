@@ -29,9 +29,9 @@ $(document).ready(function() {
 
   //NAVBAR HIGHLIGHTER:
   $("li").mouseover(function(){
-    $(this).css('backgroundColor',"grey");
+    $(this).css('backgroundColor',"rgba(0,150,136,1)");
   }).mouseout(function(){
-    $(this).css('backgroundColor',"#2D3E50");
+    $(this).css('backgroundColor',"inherit");
   });
 
   //SUBMIT LOGIN LISTENER AND FUNCTION:
@@ -75,9 +75,9 @@ $(document).ready(function() {
   var helpButton2 = $('.slideControl2');
   var helpButton3 = $('.slideControl3');
 
-  var help1 = 'Log in and press "Map" to view parking sygns in areas of interest.';
-  var help2 = 'Tap the map to start a new sygn, tap again to end it and open the new Sygn form.';
-  var help3 = 'Submit the form so other users can use the info when parking their cars.';
+  var help1 = 'Log in and press "Summary" to view current holdings, historical performance and options.';
+  var help2 = 'Buy / Sell analysis can be found in the [placeholder] tab.';
+  var help3 = 'Use relevant articles and portfolio analysis tab to rebalance or blog about your thoughts.';
 
   //SLIDER FUNCTION
   function slideTutorial(){
@@ -91,18 +91,18 @@ $(document).ready(function() {
         helpText.text(help1);
         helpButton2.css('background-color','rgba(45,62,80,0.3)');
         helpButton3.css('background-color','rgba(45,62,80,0.3)');
-        helpButton1.css('background-color','rgba(45,62,80,0.8)');
+        helpButton1.css('background-color','rgba(0,150,136,1)');
       } else if(slide === 2){
         console.log('slide 2');
         helpText.text(help2);
         helpButton1.css('background-color','rgba(45,62,80,0.3)');
         helpButton3.css('background-color','rgba(45,62,80,0.3)');
-        helpButton2.css('background-color','rgba(45,62,80,0.8)');
+        helpButton2.css('background-color','rgba(0,150,136,1)');
       } else if(slide === 3){
         helpText.text(help3);
         helpButton1.css('background-color','rgba(45,62,80,0.3)');
         helpButton2.css('background-color','rgba(45,62,80,0.3)');
-        helpButton3.css('background-color','rgba(45,62,80,0.8)');
+        helpButton3.css('background-color','rgba(0,150,136,1)');
       }
     }); //END CALLBACK FUNCTION TO CHANGE SLIDER DEPENDANCIES
   } //END SLIDER FUNCTION
@@ -122,7 +122,7 @@ $(document).ready(function() {
     helpText.text(help1);
     helpButton2.css('background-color','rgba(45,62,80,0.3)');
     helpButton3.css('background-color','rgba(45,62,80,0.3)');
-    helpButton1.css('background-color','rgba(45,62,80,0.8)');
+    helpButton1.css('background-color','rgba(0,150,136,1)');
     slide = 1;
     startSlider();
   });
@@ -134,7 +134,7 @@ $(document).ready(function() {
     helpText.text(help2);
     helpButton1.css('background-color','rgba(45,62,80,0.3)');
     helpButton3.css('background-color','rgba(45,62,80,0.3)');
-    helpButton2.css('background-color','rgba(45,62,80,0.8)');
+    helpButton2.css('background-color','rgba(0,150,136,1)');
     slide = 2;
     startSlider();
   });
@@ -146,7 +146,7 @@ $(document).ready(function() {
     helpText.text(help3);
     helpButton1.css('background-color','rgba(45,62,80,0.3)');
     helpButton2.css('background-color','rgba(45,62,80,0.3)');
-    helpButton3.css('background-color','rgba(45,62,80,0.8)');
+    helpButton3.css('background-color','rgba(0,150,136,1)');
     slide = 3;
     startSlider();
   });

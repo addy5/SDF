@@ -1,42 +1,27 @@
-html{
-  height: 100%;
-  font-family: 'Abel', sans-serif;
-}
-
 body{
   text-align: center;
+  font-family: 'Abel', sans-serif;
 }
-
-h1 {
-    font-family: 'Abel', sans-serif;
-    color: #00008B;
-    font-size: 40px;
-    text-align: center;
-    font-weight: bold;
-    padding-bottom: 1px;
-    margin-top: 10px;
-}
-
-.navBar {
+ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   position: relative;
-  height: 43px;
+  height: 50px;
   padding-left: 40px;
-  background-color: #2D3E50;
+  background-color: rgba(45,45,45,0.93);
 }
 
-.navBar li {
+li {
   display: inline-block;
-  line-height: 43px;
-  min-width: 90px;
+  line-height: 50px;
+  min-width: 110px;
   text-align: center;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
   float:left;
   color:white;
-  background-color: #2D3E50;
+  background-color: inherit;
   font-size: 18px;
 }
 
@@ -49,10 +34,10 @@ a{
 .login{
   position: absolute;
   right:20px;
-  line-height: 40px;
+  line-height: 50px;
 }
 
-.login input{
+input{
   width: 150px;
   height: 20px;
   border-radius: 3px;
@@ -76,15 +61,33 @@ a{
   font-family: 'Abel', sans-serif;
 }
 
+.banner{
+  width: 100%;
+  height:400px;
+  background-size: cover;
+  background-image: url('images/nyse.jpg');
+  text-align: center;
+  /*background: black;
+  background: linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,.4));
+  transition: height .5s;*/
+}
+
+.banner h2{
+  display:inline-block;
+  color:white;
+  font-size: 40px;
+  margin-top: 120px;
+}
+
 .homeButton{
   height: 35px;
   width: 15%;
   min-width: 130px;
-  background-color: yellow;
+  background-color: rgba(0,150,136,1);
   font-size: 15px;
   border-radius: 5px;
   font-weight: bold;
-  color:#312F2F;
+  color:white;
   margin-top: 50px;
   border:none;
 }
@@ -108,142 +111,6 @@ a{
   font-size: 20px;
 }
 
-/*************** MAP SPECIFIC CSS ***************/
-.background{
-  width:100%;
-  height:100%;
-  /*bottom:0;*/
-  position: fixed;
-  background-color: rgba(0,0,0,0.58);
-  z-index: 2;
-  display: none;
-}
-
-.sygnModal{
-  position: absolute;
-  height: 350px;
-  width: 380px;
-  border: 1px solid grey;
-  border-radius: 6px;
-  margin: 0 auto;
-  background-color: rgba(255,255,255,0.9);
-  top:180px;
-  left:50%;
-  margin-left: -190px;
-  z-index: 3;
-  display: none;
-}
-
-.newModal{
-  position: absolute;
-  height: 490px;
-  width:500px;
-  border: 1px solid grey;
-  border-radius: 6px;
-  margin: 0 auto;
-  background: white;
-  top:120px;
-  left:50%;
-  margin-left: -250px;
-  z-index: 3;
-  display: none;
-}
-
-.newModal h4{
-    margin: 17px auto;
-}
-
-.exitModal{
-  position:absolute;
-  top:15px;
-  right:15px;
-  font-size:22px;
-  margin:0;
-  display: inline-block;
-}
-
-.newModal h6, .sygnModal h6 {
-    cursor: pointer;
-}
-
-#modalMap{
-  height: 30%;
-  min-height: 190px;
-  width: 85%;
-  border: 1px solid grey;
-  margin: 3px auto;
-  margin-bottom: 25px;
-}
-
-.time{
-  text-align: center;
-  height:28px;
-  margin-top: 5px;
-  display: inline-block;
-}
-
-.timeText{
-  width: 100px;
-  padding-right: 3px;
-  display: inline-block;
-  text-align: right;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.daysUL{
-    font-weight: bold;
-    list-style: none;
-    text-align: center;
-    margin-bottom: 20px;
-    padding: 0;
-}
-
-.daysUL > li{
-  display: inline-block;
-  width:12.5%;
-  height: 29px;
-  line-height: 29px;
-  font-size: 20px;
-  margin: 0;
-  /*border: 2px solid grey;*/
-  background-color: rgba(0, 0, 139, 0.38);
-  color:white;
-  border-radius: 3px;
-}
-#myList, #myList2, .am-pm{
-  font-weight: bold;
-  font-size: 15px;
-  height:28px;
-}
-
-#save-sygn{
-  color:white;
-  background: #4CAE4C;
-  height: 30px;
-  width: 20%;
-  max-width: 150px;
-  min-width: 80px;
-  padding: 0 10px;
-  border-radius: 5px;
-  margin-top: 15px;
-  font-size: 16px;
-  border-width: 0;
-}
-
-#currentUser{
-  width:200px;
-  height:190px;
-  font-size: 15px;
-  text-align: left;
-}
-
-#currentUser h5{
-  text-align: center;
-  font-weight: bold;
-  font-size: 18px;
-}
-
 /* ------------loading icon animation------------------ */
 .spinner {
     position: fixed;
@@ -262,58 +129,9 @@ a{
 /* ------------INCREASE MAP SIZE FOR WEB BROWSERS------------------ */
 @media (min-width: 450px) and (max-width: 2000px) {
 
-  #map-canvas {
-      height: 60%;
-      min-height: 500px;
-      width: 100%;
-      min-width: 450px;
-  }
-
-  #myList, #myList2, .am-pm{
-    font-weight: bold;
-    font-size: 15px;
-    height:33px;
-
-  }
-
-  .time{
-    margin-left: -10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
-
-  .timeText{
-    width:95px;
-    text-align: right;
-  }
-
-  #myList, #myList2, .am-pm{
-    background-color: rgba(0, 0, 139, 0.1);
-  }
-
 }
 
 @media (max-width: 450px) {
 
-  #map-canvas {
-      height: 680%;
-      min-height: 500px;
-      width: 100%;
-  }
-
-  .timeText{
-    width:90px;
-    font-size: 11px;
-  }
-
-  #myList, #myList2, .am-pm{
-    font-weight: bold;
-    font-size: 12px;
-    height:23px;
-  }
-
-  .daysUL > li{
-    font-size: 15px;
-  }
 
 }

@@ -9,7 +9,8 @@ var UserSchema = new Schema({
   lastName : String,
   email : { type: String, required: true, index: {unique:true} },
   password : { type: String, required: true, select: false },
-  holdings: []
+  holdings: [],
+  history: []
 });
 
 //****** RUN THIS FUNCTION WHENEVER SAVING USER TO DATABASE ***
