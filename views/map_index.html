@@ -36,139 +36,14 @@
         </span>
       </ul>
 
-        <!--*********** LOGO AND TITLE ***********-->
-        <h1>Sygns</h1>
+      <!--*********** LOGO AND TITLE ***********-->
+      <h1>SDF</h1>
 
-        <!--*********** MAIN MAP CANVAS ***********-->
-        <div id="map-canvas"></div>
-
-        <!-- MAP SEARCH BOX -->
-        <div class="searchContainer" style="z-index:2; background-color:rgba(255, 255, 255, 0.75); width: 200px; border-radius:4px; margin:8px; padding:8px; text-align:center; position: absolute; margin-left: -100px; left: 50%; top:91px; z-index:1;">
-          <input type="text" id="searchBox" placeholder="search location" style="width: 100%; padding-left:3px; box-sizing: border-box;">
-        </div>
-
-        <!-- LOADING ICON -->
-        <div id="spinner" style="display:none;" class="spinner">
-            <img id="img-spinner" src="/images/ajax-loader_blueCircle.gif" alt="Loading"/>
-        </div>
-
-      <!-- *********** SYGN MODAL WINDOW  ************** -->
-      <div class="newModal">
-        <h6 class="exitModal exitMap">[x]</h6>
-        <h4 style="font-size:22px;">Create Sygn</h4>
-
-        <!-- SMALL MODAL MAP -->
-        <div id="modalMap"></div>
-
-        <!-- RESTRICTION DROP DOWN MENU -->
-        <label style="text-align:left; font-size:16px;" >Restriction Type: </label>
-        <select class="form-control sygn-type" id="sel1">
-            <option id="no-park">No Parking</option>
-            <option id="permit">Permit Zone</option>
-            <option id="load">Loading Zone</option>
-            <option id="handicap">Handicap Zone</option>
-        </select>
-
-        <!-- SELECT DAYS UNORDERED LIST -->
-        <ul class="daysUL">
-            <li class="mon">M</li>
-            <li class="tue">T</li>
-            <li class="wed">W</li>
-            <li class="thu">TH</li>
-            <li class="fri">F</li>
-            <li class="sat">SA</li>
-            <li class="sun">SU</li>
-        </ul>
-
-        <!-- SELECT TIMES DROP DOWN MENU -->
-        <div class="time firstTime">
-          <form>
-            <span class="timeText">Start Time:</span>
-            <select id="myList" class="start">
-                <option>12:00</option>
-                <option>12:30</option>
-                <option>1:00</option>
-                <option>1:30</option>
-                <option>2:00</option>
-                <option>2:30</option>
-                <option>3:00</option>
-                <option>3:30</option>
-                <option>4:00</option>
-                <option>4:30</option>
-                <option>5:00</option>
-                <option>5:30</option>
-                <option>6:00</option>
-                <option>6:30</option>
-                <option>7:00</option>
-                <option>7:30</option>
-                <option>8:00</option>
-                <option>8:30</option>
-                <option>9:00</option>
-                <option>9:30</option>
-                <option>10:00</option>
-                <option>10:30</option>
-                <option>11:00</option>
-                <option>11:30</option>
-            </select>
-
-            <!-- SELECT AM-PM DROP DOWN -->
-            <select class="am-pm ampm1">
-              <option>AM</option>
-              <option>PM</option>
-            </select>
-          </form>
-        </div>
-
-        <div class="time">
-          <form>
-            <span class="timeText">End Time:</span>
-            <select id="myList2" class="end">
-              <option>12:00</option>
-              <option>12:30</option>
-              <option>1:00</option>
-              <option>1:30</option>
-              <option>2:00</option>
-              <option>2:30</option>
-              <option>3:00</option>
-              <option>3:30</option>
-              <option>4:00</option>
-              <option>4:30</option>
-              <option>5:00</option>
-              <option>5:30</option>
-              <option>6:00</option>
-              <option>6:30</option>
-              <option>7:00</option>
-              <option>7:30</option>
-              <option>8:00</option>
-              <option>8:30</option>
-              <option>9:00</option>
-              <option>9:30</option>
-              <option>10:00</option>
-              <option>10:30</option>
-              <option>11:00</option>
-              <option>11:30</option>
-            </select>
-
-            <select class="am-pm ampm2">
-              <option>AM</option>
-              <option>PM</option>
-            </select>
-
-          </form>
-        </div>
-
-        <button type="submit" id="save-sygn" name="button">Submit</button>
-
-      </div> <!--CLOSE NEW SYGN MODAL WINDOW -->
-
-      <div class="sygnModal">
-        <h6 class="exitModal exitSygn">[x]</h6>
-      </div>
 
       <!--**************** FOOTER *******************-->
       <div class="footerBar"></div>
       <div class="footer">
-        <span class="footerContact"> Sygns&reg; 2437 Corinth Avenue, Los Angeles, CA 90064, United States, info@sygns.com </span>
+        <span class="footerContact"> SDF&reg; 2437 Corinth Avenue, Los Angeles, CA 90064, United States, info@sygns.com </span>
       </div>
 
       <script type="text/javascript" src="/javascripts/map_script.js"></script>

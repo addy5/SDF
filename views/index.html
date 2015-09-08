@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Sygns</title>
+    <title>SDF</title>
     <link rel="stylesheet" href="stylesheets/reset.css">
     <link rel="stylesheet" href="stylesheets/normalize.css">
     <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
@@ -18,21 +18,21 @@
       margin: 0;
       padding: 0;
       position: relative;
-      height: 43px;
+      height: 50px;
       padding-left: 40px;
-      background-color: #2D3E50;
+      background-color: rgba(45,45,45,0.93);
     }
 
     li {
       display: inline-block;
-      line-height: 43px;
-      min-width: 90px;
+      line-height: 50px;
+      min-width: 110px;
       text-align: center;
       border-top-left-radius: 2px;
       border-top-right-radius: 2px;
       float:left;
       color:white;
-      background-color: #2D3E50;
+      background-color: inherit;
       font-size: 18px;
     }
 
@@ -45,7 +45,7 @@
     .login{
       position: absolute;
       right:20px;
-      line-height: 40px;
+      line-height: 50px;
     }
 
     input{
@@ -74,9 +74,9 @@
 
     .banner{
       width: 100%;
-      height:380px;
+      height:400px;
       background-size: cover;
-      background-image: url('images/streetFilt.jpg');
+      background-image: url('images/nyse.jpg');
       text-align: center;
       /*background: black;
       background: linear-gradient(bottom, rgba(0,0,0,1), rgba(0,0,0,.4));
@@ -94,11 +94,11 @@
       height: 35px;
       width: 15%;
       min-width: 130px;
-      background-color: yellow;
+      background-color: rgba(0,150,136,1);
       font-size: 15px;
       border-radius: 5px;
       font-weight: bold;
-      color:#312F2F;
+      color:white;
       margin-top: 50px;
       border:none;
     }
@@ -156,7 +156,7 @@
     }
 
     .moduleIcons{
-      width: 110px;
+      height: 110px;
       vertical-align: top;
       position: absolute;
       left: 50%;
@@ -165,7 +165,7 @@
 
     .moduleDetails{
       position: absolute;
-      bottom: 15%;
+      bottom: 8%;
       font-size: 20px;
     }
 
@@ -178,8 +178,8 @@
   <body>
     <!-- NAVBAR -->
     <ul class="navBar">
-      <a href="#"> <li> Sygns </li> </a>
-      <a href="/map"> <li> Map </li> </a>
+      <a href="#"> <li> SDF </li> </a>
+      <a href="/map"> <li> Summary </li> </a>
       <a href="/edit"> <li> Account </li> </a>
       <a href="/help"> <li> Help </li> </a>
       <span class="login"> <!-- LOG IN INPUTS -->
@@ -191,7 +191,7 @@
 
     <!-- BANNER -->
     <div class="banner">
-      <h2>Park easier</h2>
+      <h2>Self Directed Fund</h2>
       <br>
       <button class="homeButton"> <a href="/signup"> Sign Up Free </a> </button>
 
@@ -199,33 +199,32 @@
 
     <!-- SLOGAN -->
     <div class="container">
-      <h3> Can you park there? </h3>
-      <h5> Our maps provide real time parking information with visual layers</h5>
+      <h3> Manage A Portfolio </h3>
+      <h5> Our application tracks real quotes for your analysis </h5>
     </div>
 
     <div class="module">
-      <img class="moduleIcons" src="images/arrow.png" alt="arrow icon" />
+      <img class="moduleIcons" src="images/sarrow.png" alt="arrow icon" />
       <p class="moduleDetails">
-        Use our maps to find parking information in your area, or search other areas of interest.
+        Sign up to manage a hypothetical fund or track securities you've always been interested in.
       </p>
     </div>
 
     <div class="module">
-      <img class="moduleIcons" src="images/stop.png" alt="stop icon" />
+      <img class="moduleIcons" src="images/document.png" alt="stop icon" />
       <p class="moduleDetails">
-        Never park in a restricted space again, our maps will mark "No Parking" zones red.
+        Utilize our interface to view analysis, relevant articles, and interesting facts about stock market events.
     </div>
 
     <div class="module">
-      <img class="moduleIcons" src="images/sign.png" alt="general sign icon" />
-      <!-- <p style="width:100%; position: absolute; color:#2D3E50; height:115px; line-height: 80px; vertical-align: top; display: block; margin: 0; font-size: 115px; font-weight: bold; font-family: 'Inconsolata', arial;"> i </p> -->
+      <img class="moduleIcons" src="images/cfp.png" alt="general sign icon" />
       <p class="moduleDetails">
-        Read and update "Sygn" information remotely using our application!
+        Compare your performance to other users and real fund families! Can you become a portfolio manager?
       </p>
     </div>
 
     <p style="width:600px; margin: 25px auto; font-size:27px;">
-      Our layers are color coded to follow general parking guidelines: green markers designate areas that are open for public parking, red for currently restricted, yellow for loading zones, etc. The street parking markers will change dynamically based on the current time and day!
+      Use our tools to to keep track of your investing speculations by buying and selling at your whim. If you're a novice, feel free to play the market and learn more about portoflio management and finance!
     </p>
 
     <div style="background-color: #F0F0F0; padding: 20px">
@@ -248,7 +247,7 @@
     <!-- FOOTER -->
     <div class="footerBar"></div>
     <div class="footer">
-      <span class="footerContact"> Sygns&reg; 2437 Corinth Avenue, Los Angeles, CA 90064, United States, info@sygns.com </span>
+      <span class="footerContact"> SDF&reg; 2437 Corinth Avenue, Los Angeles, CA 90064, United States, info@sygns.com </span>
     </div>
 
     <script src="javascripts/script.js"></script>

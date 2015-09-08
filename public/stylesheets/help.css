@@ -168,8 +168,8 @@ input{
 }
 
 .contactBox button{
-  color: rgba(34,36,40,1.0);
-  background-color: yellow;
+  color: white;
+  background-color: rgba(0,150,136,1);
   width: 100px;
   height: 39px;
   font-size: 14px;

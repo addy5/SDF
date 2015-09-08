@@ -29,9 +29,9 @@ $( document ).ready(function() {
 
   //NAVBAR HIGHLIGHTER:
   $("li").mouseover(function(){
-    $(this).css('backgroundColor',"grey");
+    $(this).css('backgroundColor',"rgba(0,150,136,1)");
   }).mouseout(function(){
-    $(this).css('backgroundColor',"#2D3E50");
+    $(this).css('backgroundColor',"inherit");
   });
 
   //SUBMIT LOGIN LISTENER AND FUNCTION:

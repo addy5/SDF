@@ -18,14 +18,12 @@ app.set('port', process.env.PORT || 8080);
 //BRING IN USER ROUTE:
 var userRoutes = require('./config/userRoutes');
 
-//BRING IN SYGNS ROUTE:
-var sygnRoutes = require('./config/sygnRoutes');
 
 //TOKEN CONFIGURATION:
 var superSecret = 'iamtherealbatman';
 
 //CONNECT OUR DATABASE:
-var mongodbUri = 'mongodb://addy:password@ds033123.mongolab.com:33123/sygns_db';
+var mongodbUri = 'mongodb://addy:password@ds041583.mongolab.com:41583/sfd';
 mongoose.connect(mongodbUri);
 
 //USE PUBLIC FOLDER FOR ANY FILE REQUESTS:
@@ -70,8 +68,6 @@ app.get('/signup', function(req,res){
 //REGISTER THE USERS ROUTE:
 app.use('/users', userRoutes);
 
-//REGISTER THE SYGNS ROUTE:
-app.use('/sygns',sygnRoutes);
 
 //ROUTE TO AUTHENTICATE / LOG IN A USER AND REDIRECT:
 app.post('/authenticate',function(req,res){
