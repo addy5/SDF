@@ -10,6 +10,7 @@ var user;
 
 var dataToPlot = [];
 
+var articleArray = ['NYSE','Dow Jones','Wall Street','finance','nasdaq','stock markets','investing'];
 var articleFeed = $('.articleFeed');
 
 //RANDOM NUMBER SELECTOR FROM 1 TO 10:
@@ -99,7 +100,6 @@ function drawChart(a,b,c,d,e) {
 
 //LOAD GOOGLE LINE VISUALIZATION:
 function drawLineChart() {
-
   var data = google.visualization.arrayToDataTable(dataToPlot);
 
   var options = {
@@ -172,21 +172,18 @@ $(document).ready(function() {
         balance.text('$' + data.balance);
         console.log(user);
 
-        //FILL NEWS FEED BASED ON USERS HOLDINGS:
-        if(user.holdings.length > 3){
-          for(var g=0; g < 3; g++){
-            currentArticle = randomNum(user.holdings.length);
-            newsFeed(user.holdings[currentArticle].symbol);
-          }
-          newsFeed('NYSE');
-        } else {
-          for(var m=0; m < user.holdings.length; m++){
-            newsFeed(user.holdings[m].symbol);
-          }
-          newsFeed('NYSE');
-          newsFeed('Dow Jones');
+        for(var b=0; b < user.holdings.length; b++){
+          articleArray.push(user.holdings[b].name.split(" ")[0]);
         }
-      } //END AJAX SUCCESS REQUEST
+        console.log(articleArray);
+
+        //FILL NEWS FEED BASED ON USERS HOLDINGS:
+
+        for(var g=0; g < 3; g++){
+          var currentArticle = randomNum(articleArray.length);
+          newsFeed(articleArray[currentArticle]);
+        }
+      } //END AJAX SUCCESS FUNCTION
     }); //ENDS AJAX REQUEST TO SHOW USER
 
     //STOCK SEARCH LISTENER AND FUNCTIONS:
@@ -217,10 +214,9 @@ $(document).ready(function() {
 
 // https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22YHOO%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys
 
+    //FUNCTION TO GET CURRENT STOCK QUOTES BASE ON SYMBOL:
     function runQuote(){
-
       var queryParams = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22'+query.val()+'%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
-
 
       $.getJSON(queryParams, function(data){
           console.log(data.query.results.quote);
@@ -238,6 +234,7 @@ $(document).ready(function() {
 
     }
 
+    //FUNCTION TO GET 30 DAY PRICE HISTORY BASED ON SYMBOL:
     function runPriceHistory(){
     var queryParams = 'https://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.historicaldata where symbol in ("'+ query.val() +'") and startDate = "'+lastYear+'-'+lastMonth+'-'+lastDay+'" and endDate = "'+year+'-'+month+'-'+day+'"';
 
@@ -252,7 +249,7 @@ $(document).ready(function() {
             dataToPlot.push( [ array[i].Date, parseFloat(array[i].Close) ] );
         }
         console.log(dataToPlot);
-        setTimeout(drawLineChart,1000);
+        setTimeout(drawLineChart,500);
       });
     }
 
@@ -284,6 +281,7 @@ $(document).ready(function() {
     background.on('click', function(){
       background.fadeOut('slow');
       buyModal.fadeOut('slow');
+      sharesInput.val("");
     });
 
     sharesInput.on('input', function(){
@@ -376,12 +374,12 @@ $(document).ready(function() {
             if(data.redirect){
                 window.location.href = data.redirect;
             }
-        }
+        } //CLOSE AJAX SUCCESS FUNCTION
       }); // CLOSE AJAX PATCH REQUEST TO USER'S HOLDINGS
     }); // CLOSE CONFIRM BUTTON TO BUY FUNCTION
 
-    var priceToggle = $('.priceToggle');
-    var buyToggle = $('.buyToggle');
+    var priceToggle = $('.priceToggle'); //TOGGLE PRICE CHART
+    var buyToggle = $('.buyToggle'); //TOGGLE SCATTER CHART
 
     priceToggle.on('click', function(){
       $(this).css('background-color','rgba(128,128,128,1.0)');
