@@ -187,7 +187,7 @@ $(document).ready(function() {
       }
 
       total.text('Total');
-      totalFees.text( ((parseInt(sharesInput.val()) * parseFloat(price.text())) + 24 + oddFee).toFixed(2) );
+      totalFees.text( '$' + ((parseInt(sharesInput.val()) * parseFloat(price.text())) + 24 + oddFee).toFixed(2) );
     });
 
     var cancelButton = $('.cancelButton');
@@ -197,5 +197,8 @@ $(document).ready(function() {
     });
 
     var confirmButton = $('.confirmButton');
+    confirmButton.on('click', function(){
+
+    });
 
 }); //CLOSE JQUERY ON PAGE LOAD FUNCTION
