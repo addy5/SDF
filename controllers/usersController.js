@@ -90,7 +90,7 @@ function updateUser(req,res){
 
       User.findOne({email: decodedInfo.email}, function(err, user){
 
-        console.log('found him');
+        console.log('found user');
         console.log(req.decoded.email);
         if(err) res.send(err);
 
@@ -99,11 +99,25 @@ function updateUser(req,res){
         if(req.body.lastName) user.lastName = req.body.lastName;
         if(req.body.email) user.email = req.body.email;
         if(req.body.password) user.password = req.body.password;
+        if(req.body.purchase){
+          //PARSE PURCHASE OBJECT FEES TO UPDATE USER INFO:
+          var parseFees =  req.body.purchase.totalFees.replace('$','');
+          var invoice = parseFloat(parseFees);
+
+          //UPDATE USER HOLDINGS IF SUFFICIENT BALANCE:
+          if (user.balance < invoice){
+            return res.json({message: 'insufficient funds', redirect:"/map"});
+          }
+          user.balance = user.balance - invoice;
+          user.holdings.push(req.body.purchase);
+        }
+
+        if(req.body.history) user.history = req.body.history;
 
         //SAVE UPDATED USER INFORMATION:
         user.save(function(err){
           if(err) res.send(err);
-          res.json({message: 'successfully updated', redirect:"/edit"});
+          res.json({message: 'successfully updated', redirect:"/map"});
         });
       });
 

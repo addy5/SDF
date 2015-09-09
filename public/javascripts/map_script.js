@@ -5,10 +5,11 @@ var month = date.getMonth() + 1;
 var lastMonth = month - 1;
 var lastDay = day;
 var lastYear = year;
+var purchase = {};
 
 var dataToPlot = [];
 
-    //CONVERT DATE INTO STRINGS
+//CONVERT DATE INTO STRINGS FOR 30 DAY PRICE HISTORY
     if(month < 10){
       month = '0' + month.toString();
     } else {
@@ -37,15 +38,17 @@ var dataToPlot = [];
     }
 
     year = year.toString();
+//END OF 30 DAY DATE CONVERSION
 
 
-//LOAD GOOGLE SCATTER VISUALIZATION:
+//LOAD GOOGLE SCATTER AND LINE VISUALIZATION:
 google.load("visualization", "1", {packages:["corechart"]});
 var buyChart = $('#buyChart');
 var priceChart = $('#priceChart');
 
-function drawChart(a,b,c,d,e) {
 
+//GOOGLE PRICE SCATTER PLOT:
+function drawChart(a,b,c,d,e) {
   var data = google.visualization.arrayToDataTable(
     [  ['Data', 'Price'],
    [ 'current', a],
@@ -306,8 +309,32 @@ $(document).ready(function() {
 
     var confirmButton = $('.confirmButton');
     confirmButton.on('click', function(){
+      purchase.symbol = symbol.text();
+      purchase.price = price.text();
+      purchase.volume = sharesInput.val();
+      purchase.subTotal = totalPrice.text();
+      purchase.tradeFee = totalTradeFee.text();
+      purchase.oddLotFee = totalOddLotFee.text();
+      purchase.totalFees = totalFees.text();
 
-    });
+      console.log(purchase);
+      // AJAX REQUEST TO PATCH USER'S HOLDINGS (BUY):
+      $.ajax({
+        method: "patch",
+        url: "/users/purchase", //WILL BE USING TOKEN TO FIND USER
+        data: JSON.stringify( {purchase: purchase} ),
+        contentType: 'application/json; charset=UTF-8',
+        dataType : 'json',
+        success: function(data){
+            console.log(data);
+
+            //REDIRECT IF SERVER RESPONSE HAS REDIRECT KEY:
+            if(data.redirect){
+                window.location.href = data.redirect;
+            }
+        }
+      }); // CLOSE AJAX PATCH REQUEST TO USER'S HOLDINGS
+    }); // CLOSE CONFIRM BUTTON TO BUY FUNCTION
 
     var priceToggle = $('.priceToggle');
     var buyToggle = $('.buyToggle');
