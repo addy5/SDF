@@ -141,7 +141,7 @@ input{
   /*bottom:0;*/
   position: fixed;
   background-color: rgba(0,0,0,0.58);
-  z-index: 2;
+  z-index: 4;
   display: none;
 }
 
@@ -155,7 +155,7 @@ input{
   border: 1px solid grey;
   background-color: white;
   display:none;
-  z-index:3;
+  z-index:5;
   padding: 40px 0;
   text-align: center;
 }
@@ -216,7 +216,7 @@ input{
   text-align: center;
   line-height: 30px;
   background-color: rgba(0,150,136,1);
-  margin: 10px auto;
+  margin: 10px 5px;
   border: none;
   display: none;
 }
@@ -231,7 +231,7 @@ input{
   text-align: center;
   line-height: 30px;
   background-color: #D9534F;
-  margin: 10px auto;
+  margin: 10px 5px;
   border: none;
   display: none;
 }

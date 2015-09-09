@@ -62,16 +62,15 @@
 
       <!--*********** BUY ***********-->
       <div class="buy" style="min-width:700px; width:80%; min-height:530px; border:1px solid grey; margin: 20px auto; margin-bottom:50px; position:relative; text-alignment: center;">
-        <h3 style="font-size:23px;">Buy</h3>
 
-        <div style="position: relative; height: 60px; top:40px;">
+        <div style="position: relative; height: 60px; top:60px;">
           <p style="display:inline-block; position:absolute; width:150px; height: 40px; vertical-align:top; left:6%; margin-right: 10px; line-height:40px; font-size:18px;">
             Funds Available:
           </p>
           <p class="balance" style="display:inline-block; position:absolute; line-height: 40px; height:40px; width: 70px; vertical-align:top; font-size:18px; left:205px;"></p>
         </div>
 
-        <div style="position: relative; height: 60px; top:40px;">
+        <div style="position: relative; height: 60px; top:60px;">
           <p style="display:inline-block; position:absolute; width:150px; height: 40px; vertical-align:top; left:6%; margin-right: 5px; line-height:40px; font-size:18px;">
             Search Symbol:
           </p>
@@ -80,11 +79,18 @@
           <button class="search" style="display:inline-block; position:absolute; line-height: 40px; height:34px; width: 60px; top:30%; border: 1px solid grey; vertical-align:top; left:286px; line-height:30px; font-size:15px; background-color:rgba(0,150,136,1); color:white; border-radius:3px; border:none;" >search</button>
         </div>
 
+        <div class="buyToggle" style="width:200px; height:30px; background-color: rgba(128,128,128,0.5); color:white; position:absolute; top:40px; right:402px;   border-top-left-radius: 4px; border-top-right-radius: 4px; line-height:30px;">Price Summary</div>
+
+        <div class="priceToggle" style="width:200px; height:30px; background-color: rgba(128,128,128,1.0); color:white; position:absolute; top:40px; right:202px;   border-top-left-radius: 4px; border-top-right-radius: 4px; line-height:30px;">30 Day Prices</div>
+
         <!-- PRICE SUMMARY CHART -->
-        <div id="buyChart" style="width: 550px; height: 46%; border: 1px solid grey; position:absolute; top:70px; right:50px; display:none;"></div>
+        <div id="buyChart" style="width: 550px; height: 46%; border: 1px solid grey; position:absolute; top:70px; right:50px; z-index:2;"></div>
+
+        <!-- PRICE HISTORY CHART -->
+        <div id="priceChart" style="width: 550px; height: 46%; border: 1px solid grey; position:absolute; top:70px; right:50px; z-index:3;"></div>
 
         <!-- SECURITY SUMMARY TABLE -->
-        <div style="position: relative; border: 1px solid #A29F9F; height: 80px; margin-top:20px; padding-top:15px; display:inline-block; width:90%; top:150px;">
+        <div style="position: relative; border: 1px solid #A29F9F; height: 80px; margin-top:20px; padding-top:15px; display:inline-block; width:90%; top:210px;">
             <table style="width:100%">
               <tr>
                 <td class="header">Symbol</td>
@@ -99,7 +105,7 @@
               <tr>
                 <td class="results symbol"></td>
                 <td class="results name"></td>
-                <td class="results price"></td>
+                <td class="results price" style="font-size:19px;"></td>
                 <td class="results volume"></td>
                 <td class="results dailyHigh"></td>
                 <td class="results dailyLow"></td>
