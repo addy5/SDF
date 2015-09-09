@@ -9,6 +9,27 @@ var purchase = {};
 
 var dataToPlot = [];
 
+var articleFeed = $('.articleFeed');
+var nyTimes = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=apple&page=1&sort=newest&api-key=ba627640adb004fc3d5047fc6e33a8c3:19:72915330';
+
+//FILL NEWS SIDEBAR WITH RECENT RELATED ARTICLES:
+$.ajax({
+  method: 'get',
+  url: 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=apple&page=1&sort=newest&api-key=ba627640adb004fc3d5047fc6e33a8c3:19:72915330',
+  success: function(data){
+
+    articleFeed.append('<p style="padding: 1px 15px; margin: 1px 2px; text-align:left; font-size: 20px;">' + data.response.docs[0].headline.main +'</p>' + '<p style="padding: 0 15px; text-align:left; margin:1px 2px 30px 2px;">' + data.response.docs[0].snippet +'..<a style="color:blue" href="' + data.response.docs[0].web_url + '">'+ 'read more </a></p>');
+
+    articleFeed.append('<p style="padding: 1px 15px; margin: 1px 2px; text-align:left; font-size: 20px;">' + data.response.docs[1].headline.main +'</p>' + '<p style="padding: 0 15px; text-align:left; margin:1px 2px 30px 2px;">' + data.response.docs[1].snippet +'..<a style="color:blue" href="' + data.response.docs[1].web_url + '">'+ 'read more </a></p>');
+
+    articleFeed.append('<p style="padding: 1px 15px; margin: 1px 2px; text-align:left; font-size: 20px;">' + data.response.docs[2].headline.main +'</p>' + '<p style="padding: 0 15px; text-align:left; margin:1px 2px 30px 2px;">' + data.response.docs[2].snippet +'..<a style="color:blue" href="' + data.response.docs[2].web_url + '">'+ 'read more </a></p>');
+
+    articleFeed.append('<p style="padding: 1px 15px; margin: 1px 2px; text-align:left; font-size: 20px;">' + data.response.docs[3].headline.main +'</p>' + '<p style="padding: 0 15px; text-align:left; margin:1px 2px 30px 2px;">' + data.response.docs[3].snippet +'..<a style="color:blue" href="' + data.response.docs[3].web_url + '">'+ 'read more </a></p>');
+
+  }
+});
+
+
 //CONVERT DATE INTO STRINGS FOR 30 DAY PRICE HISTORY
     if(month < 10){
       month = '0' + month.toString();

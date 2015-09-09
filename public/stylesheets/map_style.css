@@ -236,6 +236,10 @@ input{
   display: none;
 }
 
+a {
+	word-wrap: break-word;
+}
+
 /* ------------INCREASE MAP SIZE FOR WEB BROWSERS------------------ */
 @media (min-width: 450px) and (max-width: 2000px) {
 
