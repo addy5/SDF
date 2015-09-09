@@ -6,28 +6,34 @@ var lastMonth = month - 1;
 var lastDay = day;
 var lastYear = year;
 var purchase = {};
+var user;
 
 var dataToPlot = [];
 
 var articleFeed = $('.articleFeed');
-var nyTimes = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=apple&page=1&sort=newest&api-key=ba627640adb004fc3d5047fc6e33a8c3:19:72915330';
+
+//RANDOM NUMBER SELECTOR FROM 1 TO 10:
+function randomNum(num){
+  smallNum = Math.random();
+  return Math.floor( smallNum * num );
+}
 
 //FILL NEWS SIDEBAR WITH RECENT RELATED ARTICLES:
-$.ajax({
-  method: 'get',
-  url: 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=apple&page=1&sort=newest&api-key=ba627640adb004fc3d5047fc6e33a8c3:19:72915330',
-  success: function(data){
+function newsFeed(newsQuery){
+  var nyTimes = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q='+ newsQuery +'&page=1&sort=newest&api-key=ba627640adb004fc3d5047fc6e33a8c3:19:72915330';
 
-    articleFeed.append('<p style="padding: 1px 15px; margin: 1px 2px; text-align:left; font-size: 20px;">' + data.response.docs[0].headline.main +'</p>' + '<p style="padding: 0 15px; text-align:left; margin:1px 2px 30px 2px;">' + data.response.docs[0].snippet +'..<a style="color:blue" href="' + data.response.docs[0].web_url + '">'+ 'read more </a></p>');
+    $.ajax({
+      method: 'get',
+      url: nyTimes,
+      success: function(data){
 
-    articleFeed.append('<p style="padding: 1px 15px; margin: 1px 2px; text-align:left; font-size: 20px;">' + data.response.docs[1].headline.main +'</p>' + '<p style="padding: 0 15px; text-align:left; margin:1px 2px 30px 2px;">' + data.response.docs[1].snippet +'..<a style="color:blue" href="' + data.response.docs[1].web_url + '">'+ 'read more </a></p>');
+        articleFeed.append('<p style="padding: 1px 15px; margin: 1px 2px; text-align:left; font-size: 20px;">' + data.response.docs[0].headline.main +'</p>' + '<p style="padding: 0 15px; text-align:left; margin:1px 2px 30px 2px;">' + data.response.docs[0].snippet +'..<a style="color:blue" href="' + data.response.docs[0].web_url + '">'+ 'read more </a></p>');
 
-    articleFeed.append('<p style="padding: 1px 15px; margin: 1px 2px; text-align:left; font-size: 20px;">' + data.response.docs[2].headline.main +'</p>' + '<p style="padding: 0 15px; text-align:left; margin:1px 2px 30px 2px;">' + data.response.docs[2].snippet +'..<a style="color:blue" href="' + data.response.docs[2].web_url + '">'+ 'read more </a></p>');
+        articleFeed.append('<p style="padding: 1px 15px; margin: 1px 2px; text-align:left; font-size: 20px;">' + data.response.docs[1].headline.main +'</p>' + '<p style="padding: 0 15px; text-align:left; margin:1px 2px 30px 2px;">' + data.response.docs[1].snippet +'..<a style="color:blue" href="' + data.response.docs[1].web_url + '">'+ 'read more </a></p>');
 
-    articleFeed.append('<p style="padding: 1px 15px; margin: 1px 2px; text-align:left; font-size: 20px;">' + data.response.docs[3].headline.main +'</p>' + '<p style="padding: 0 15px; text-align:left; margin:1px 2px 30px 2px;">' + data.response.docs[3].snippet +'..<a style="color:blue" href="' + data.response.docs[3].web_url + '">'+ 'read more </a></p>');
-
-  }
-});
+      } //END AJAX SUCCESS FUNCTION
+    }); //END AJAX CALL TO GET NY TIMES ARTICLES
+} //END FILL NEWSFEED FUNCTION
 
 
 //CONVERT DATE INTO STRINGS FOR 30 DAY PRICE HISTORY
@@ -162,10 +168,26 @@ $(document).ready(function() {
       method: "get",
       url: "/users/placeholder", //WILL BE USING TOKEN TO FIND USER IN CONTROLLER
       success: function(data){
-        console.log(data);
+        user = data;
         balance.text('$' + data.balance);
-      }
-    });
+        console.log(user);
+
+        //FILL NEWS FEED BASED ON USERS HOLDINGS:
+        if(user.holdings.length > 3){
+          for(var g=0; g < 3; g++){
+            currentArticle = randomNum(user.holdings.length);
+            newsFeed(user.holdings[currentArticle].symbol);
+          }
+          newsFeed('NYSE');
+        } else {
+          for(var m=0; m < user.holdings.length; m++){
+            newsFeed(user.holdings[m].symbol);
+          }
+          newsFeed('NYSE');
+          newsFeed('Dow Jones');
+        }
+      } //END AJAX SUCCESS REQUEST
+    }); //ENDS AJAX REQUEST TO SHOW USER
 
     //STOCK SEARCH LISTENER AND FUNCTIONS:
     var query = $('.query');
@@ -331,6 +353,7 @@ $(document).ready(function() {
     var confirmButton = $('.confirmButton');
     confirmButton.on('click', function(){
       purchase.symbol = symbol.text();
+      purchase.name = name.text();
       purchase.price = price.text();
       purchase.volume = sharesInput.val();
       purchase.subTotal = totalPrice.text();

@@ -147,9 +147,9 @@ input{
 
 .buyModal{
   width: 500px;
-  height: 470px;
+  height: 440px;
   position: absolute;
-  top: 110px;
+  top: 710px;
   left: 50%;
   margin-left: -250px;
   border: 1px solid grey;
