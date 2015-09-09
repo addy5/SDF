@@ -147,7 +147,7 @@ input{
 
 .buyModal{
   width: 500px;
-  height: 400px;
+  height: 470px;
   position: absolute;
   top: 110px;
   left: 50%;
@@ -157,13 +157,83 @@ input{
   display:none;
   z-index:3;
   padding: 40px 0;
+  text-align: center;
 }
 
 .modalLine{
     line-height: 40px;
-    font-size: 24px;
+    font-size: 20px;
     text-align: center;
     margin: 5px 0;
+}
+
+.modalShares{
+  line-height: 40px;
+  font-size: 20px;
+  text-align: center;
+  margin: 5px 0;
+  display: inline-block;
+  width: 46%;
+}
+
+.sharesInput{
+    width: 70px;
+    height: 32px;
+    position: relative;
+    /*left: -10px;*/
+    top: -3px;
+    font-size: 17px;
+    text-align: center;
+}
+
+.modalInvoice{
+  line-height: 40px;
+  font-size: 16px;
+  text-align: left;
+  margin: 0;
+  display: inline-block;
+  width:230px;
+  position: relative;
+}
+
+.modalTotal{
+  line-height: 40px;
+  font-size: 16px;
+  text-align: right;
+  margin: 0;
+  display: inline-block;
+  width:130px;
+  position: relative;
+}
+
+.confirmButton{
+  width: 15%;
+  min-width: 100px;
+  height:40px;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 30px;
+  background-color: rgba(0,150,136,1);
+  margin: 10px auto;
+  border: none;
+  display: none;
+}
+
+.cancelButton {
+  width: 15%;
+  min-width: 100px;
+  height:40px;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 30px;
+  background-color: #D9534F;
+  margin: 10px auto;
+  border: none;
+  display: none;
 }
 
 /* ------------INCREASE MAP SIZE FOR WEB BROWSERS------------------ */

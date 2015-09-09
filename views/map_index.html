@@ -19,11 +19,29 @@
     <body>
       <!--*********** HIDDEN MODAL BACKGROUND ***********-->
       <div class="background"></div>
+
+      <!-- BUY MODAL WINDOW -->
       <div class="buyModal">
         <p class="modalTitle modalLine"></p>
-        <p class="modalDetails modalLine"></p>
+        <input type="text" class="sharesInput" placeholder="Enter">
+        <p class="modalDetails modalShares"></p>
 
-      </div>
+        <p class="modalLine" style="margin-top:30px;"> Review </p>
+        <hr style="width:70%;">
+        <p class="totalSummary modalInvoice"></p>
+        <p class="totalPrice modalTotal"></p>
+        <p class="totalTrade modalInvoice"></p>
+        <p class="totalTradeFee modalTotal"></p>
+        <p class="totalOddLot modalInvoice"></p>
+        <p class="totalOddLotFee modalTotal"></p>
+        <p class="total modalInvoice" style="text-align:right; font-size:20px"></p>
+        <p class="totalFees modalTotal" style="font-size:20px"></p>
+
+        <div style="margin-top:20px;">
+          <button type="button" class="confirmButton">Confirm</button>
+          <button type="button" class="cancelButton">Cancel</button>
+        </div>
+      </div> <!-- END BUY MODAL DIV -->
 
       <!-- NAVBAR -->
       <ul class="navBar">

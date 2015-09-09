@@ -136,17 +136,66 @@ $(document).ready(function() {
     var buyModal = $('.buyModal');
     var modalTitle = $('.modalTitle');
     var modalDetails = $('.modalDetails');
+    var sharesInput = $('.sharesInput');
+    var totalSummary = $('.totalSummary');
+    var totalPrice = $('.totalPrice');
+    var totalTradeFee = $('.totalTradeFee');
+    var totalTrade = $('.totalTrade');
+    var totalOddLot = $('.totalOddLot');
+    var totalOddLotFee = $('.totalOddLotFee');
+    var totalFees = $('.totalFees');
+    var total = $('.total');
+
+    var oddFee = 0;
 
     buyButton.on('click', function(){
       background.fadeIn('slow');
       buyModal.fadeIn('slow');
       modalTitle.text('Purchasing ' + name.text());
-      modalDetails.text('@price of $' + price.text() + ' per share');
+      modalDetails.text('shares @ $' + price.text() + ' per share');
     });
 
     background.on('click', function(){
       background.fadeOut('slow');
       buyModal.fadeOut('slow');
     });
+
+    sharesInput.on('input', function(){
+      totalSummary.text(sharesInput.val() + ' shares of ' + symbol.text() + ' x ' + price.text());
+
+      if( isNaN(parseInt(sharesInput.val()) ) ){
+        cancelButton.hide();
+        confirmButton.hide();
+      } else{
+        cancelButton.show();
+        confirmButton.show();
+      }
+
+      totalPrice.text( '$' +  (parseInt(sharesInput.val()) * parseFloat(price.text())).toFixed(2) );
+
+      totalTrade.text('Trade Fee');
+      totalTradeFee.text('$24');
+
+      if( sharesInput.val() % 100 === 0){
+        totalOddLot.text('Odd Lot Charge');
+        totalOddLotFee.text('$0');
+        oddFee = 0;
+      } else {
+        totalOddLot.text('Odd Lot Charge');
+        totalOddLotFee.text('$7');
+        oddFee = 7;
+      }
+
+      total.text('Total');
+      totalFees.text( ((parseInt(sharesInput.val()) * parseFloat(price.text())) + 24 + oddFee).toFixed(2) );
+    });
+
+    var cancelButton = $('.cancelButton');
+    cancelButton.on('click', function(){
+      background.fadeOut('slow');
+      buyModal.fadeOut('slow');
+    });
+
+    var confirmButton = $('.confirmButton');
 
 }); //CLOSE JQUERY ON PAGE LOAD FUNCTION
