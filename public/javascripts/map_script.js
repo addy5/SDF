@@ -175,10 +175,8 @@ $(document).ready(function() {
         for(var b=0; b < user.holdings.length; b++){
           articleArray.push(user.holdings[b].name.split(" ")[0]);
         }
-        console.log(articleArray);
 
         //FILL NEWS FEED BASED ON USERS HOLDINGS:
-
         for(var g=0; g < 3; g++){
           var currentArticle = randomNum(articleArray.length);
           newsFeed(articleArray[currentArticle]);
