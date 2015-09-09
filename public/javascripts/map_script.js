@@ -235,7 +235,7 @@ $(document).ready(function() {
       background.fadeIn('slow');
       buyModal.fadeIn('slow');
       modalTitle.text('Purchasing ' + name.text());
-      modalDetails.text('shares @ $' + price.text() + ' per share');
+      modalDetails.text('shares @ $' + (parseFloat(price.text())).toFixed(2) + ' per share');
     });
 
     background.on('click', function(){
