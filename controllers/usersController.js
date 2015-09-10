@@ -76,7 +76,7 @@ function getAll(req,res,logThis){
 
     arrayOfStocks.forEach(function(stock){
       getPrice(stock);
-    })
+    });
 
     function logStocks(){
       console.log(currentValues);
