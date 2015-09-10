@@ -178,7 +178,7 @@ $(document).ready(function() {
           tickerStocks.push(user.holdings[b].symbol);
           if(b == user.holdings.length-1){
             callQuotes();
-            marginCount = tickerStocks.length * 260 + (tickerStocks.length % 3);
+            marginCount = tickerStocks.length * 230 + (tickerStocks.length % 3);
             tickerLength = '-'+marginCount+'px';
             console.log(tickerLength);
           }
@@ -414,9 +414,9 @@ $(document).ready(function() {
 
         if(data.query.results.quote.Change[0] === '+'){
 
-          tickerTape.append('<li class="tickerLi"> <-- '+ data.query.results.quote.symbol +' last: '+ data.query.results.quote.LastTradePriceOnly + ' change: <span  style="color:green;">'+ data.query.results.quote.Change +'</span>  --></li>');
+          tickerTape.append('<li class="tickerLi"> |&nbsp;&nbsp; '+ data.query.results.quote.symbol +' last: '+ data.query.results.quote.LastTradePriceOnly + ' change: <span  style="color:green;">'+ data.query.results.quote.Change +'</span> &nbsp;&nbsp;| </li>');
         } else {
-          tickerTape.append('<li class="tickerLi"> <-- '+ data.query.results.quote.symbol +' last: '+ data.query.results.quote.LastTradePriceOnly + ' change: <span  style="color:red;">'+ data.query.results.quote.Change +' </span> --></li>');
+          tickerTape.append('<li class="tickerLi"> |&nbsp;&nbsp;  '+ data.query.results.quote.symbol +' last: '+ data.query.results.quote.LastTradePriceOnly + ' change: <span  style="color:red;">'+ data.query.results.quote.Change +' </span> &nbsp;&nbsp;| </li>');
         }
       }//END AJAX SUCCESS FUNCTION
     }); //END AJAX REQUEST FOR TICKER INFO
@@ -432,8 +432,8 @@ $(document).ready(function() {
 
   //MOVE TICKER TAPE FUNCTION:
   function moveTicker(){
-    if (tickerTape.css("margin-left") == tickerLength){
-      tickerTape.css("margin-left","90");
+    if(tickerTape.css("margin-left") == tickerLength){
+      tickerTape.css("margin-left","-90px");
     }
     tickerTape.css('margin-left','-=3');
   }
