@@ -22,7 +22,7 @@ function randomNum(num){
   return Math.floor( smallNum * num );
 }
 
-//FILL NEWS SIDEBAR WITH RECENT RELATED ARTICLES:
+//FILL NEWS SIDEBAR WITH RECENT RELATED NY TIMES ARTICLES:
 function newsFeed(newsQuery){
   var nyTimes = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q='+ newsQuery +'&page=1&sort=newest&api-key=ba627640adb004fc3d5047fc6e33a8c3:19:72915330';
 
@@ -178,7 +178,7 @@ $(document).ready(function() {
           tickerStocks.push(user.holdings[b].symbol);
           if(b == user.holdings.length-1){
             callQuotes();
-            marginCount = tickerStocks.length * 230 + (tickerStocks.length % 3);
+            marginCount = tickerStocks.length * 230 + (tickerStocks.length % 2);
             tickerLength = '-'+marginCount+'px';
             console.log(tickerLength);
           }
@@ -414,7 +414,7 @@ $(document).ready(function() {
 
         if(data.query.results.quote.Change[0] === '+'){
 
-          tickerTape.append('<li class="tickerLi"> |&nbsp;&nbsp; '+ data.query.results.quote.symbol +' last: '+ data.query.results.quote.LastTradePriceOnly + ' change: <span  style="color:green;">'+ data.query.results.quote.Change +'</span> &nbsp;&nbsp;| </li>');
+          tickerTape.append('<li class="tickerLi"> |&nbsp;&nbsp; '+ data.query.results.quote.symbol +' last: '+ data.query.results.quote.LastTradePriceOnly + ' change: <span  style="color:rgba(0,130,0,0.85);">'+ data.query.results.quote.Change +'</span> &nbsp;&nbsp;| </li>');
         } else {
           tickerTape.append('<li class="tickerLi"> |&nbsp;&nbsp;  '+ data.query.results.quote.symbol +' last: '+ data.query.results.quote.LastTradePriceOnly + ' change: <span  style="color:red;">'+ data.query.results.quote.Change +' </span> &nbsp;&nbsp;| </li>');
         }
@@ -426,19 +426,22 @@ $(document).ready(function() {
   function callQuotes(){
     for(var e=0; e < tickerStocks.length; e++){
       ticker(tickerStocks[e]);
-      if(e === tickerStocks.length -1)startTicker();
+      if(e === tickerStocks.length -1){
+        startTicker();
+        $('.ticker1').text('Welcome!');
+      }
     }
-  }
+  } //END CALL AND APPEND QUOTES
 
   //MOVE TICKER TAPE FUNCTION:
   function moveTicker(){
     if(tickerTape.css("margin-left") == tickerLength){
       tickerTape.css("margin-left","-90px");
     }
-    tickerTape.css('margin-left','-=3');
+    tickerTape.css('margin-left','-=2');
   }
   function startTicker(){
-    setInterval(moveTicker,50);
+    setInterval(moveTicker,60);
   }
 
 }); //CLOSE JQUERY ON PAGE LOAD FUNCTION
