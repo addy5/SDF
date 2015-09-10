@@ -7,6 +7,9 @@ var lastDay = day;
 var lastYear = year;
 var purchase = {};
 var user;
+var tickerStocks = ['TSLA','AAPL','GS','YHOO','GOOG','FB','ADR','TWX','AMZN','NFLX','BABA','MSFT','XOM','BAC','DIS','JPM','PG','INTC'];
+var marginCount;
+var tickerLength;
 
 var dataToPlot = [];
 
@@ -29,8 +32,6 @@ function newsFeed(newsQuery){
       success: function(data){
 
         articleFeed.append('<p style="padding: 1px 15px; margin: 1px 2px; text-align:left; font-size: 20px;">' + data.response.docs[0].headline.main +'</p>' + '<p style="padding: 0 15px; text-align:left; margin:1px 2px 30px 2px;">' + data.response.docs[0].snippet +'..<a style="color:blue" href="' + data.response.docs[0].web_url + '">'+ 'read more </a></p>');
-
-        articleFeed.append('<p style="padding: 1px 15px; margin: 1px 2px; text-align:left; font-size: 20px;">' + data.response.docs[1].headline.main +'</p>' + '<p style="padding: 0 15px; text-align:left; margin:1px 2px 30px 2px;">' + data.response.docs[1].snippet +'..<a style="color:blue" href="' + data.response.docs[1].web_url + '">'+ 'read more </a></p>');
 
       } //END AJAX SUCCESS FUNCTION
     }); //END AJAX CALL TO GET NY TIMES ARTICLES
@@ -174,10 +175,17 @@ $(document).ready(function() {
 
         for(var b=0; b < user.holdings.length; b++){
           articleArray.push(user.holdings[b].name.split(" ")[0]);
+          tickerStocks.push(user.holdings[b].symbol);
+          if(b == user.holdings.length-1){
+            callQuotes();
+            marginCount = tickerStocks.length * 260 + (tickerStocks.length % 3);
+            tickerLength = '-'+marginCount+'px';
+            console.log(tickerLength);
+          }
         }
 
         //FILL NEWS FEED BASED ON USERS HOLDINGS:
-        for(var g=0; g < 3; g++){
+        for(var g=0; g < 8; g++){
           var currentArticle = randomNum(articleArray.length);
           newsFeed(articleArray[currentArticle]);
         }
@@ -246,7 +254,6 @@ $(document).ready(function() {
         for(var i=array.length-1; i > 0; i-=1){
             dataToPlot.push( [ array[i].Date, parseFloat(array[i].Close) ] );
         }
-        console.log(dataToPlot);
         setTimeout(drawLineChart,500);
       });
     }
@@ -392,5 +399,46 @@ $(document).ready(function() {
       priceChart.css('z-index','2');
       buyChart.css('z-index','3');
     });
+
+  var tickerTape = $('.tickerTape');
+
+  //FUNCTION TO LOOP THROUGH ALL STOCKS FOR TICKER INFO:
+  function ticker(param){
+    var stockQuery = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22'+param+'%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
+    //AJAX REQUEST TO LOAD TICKER TAPE INFO:
+    $.ajax({
+      method:'get',
+      url: stockQuery,
+      success: function(data){
+        // console.log(data.query.results.quote);
+
+        if(data.query.results.quote.Change[0] === '+'){
+
+          tickerTape.append('<li class="tickerLi"> <-- '+ data.query.results.quote.symbol +' last: '+ data.query.results.quote.LastTradePriceOnly + ' change: <span  style="color:green;">'+ data.query.results.quote.Change +'</span>  --></li>');
+        } else {
+          tickerTape.append('<li class="tickerLi"> <-- '+ data.query.results.quote.symbol +' last: '+ data.query.results.quote.LastTradePriceOnly + ' change: <span  style="color:red;">'+ data.query.results.quote.Change +' </span> --></li>');
+        }
+      }//END AJAX SUCCESS FUNCTION
+    }); //END AJAX REQUEST FOR TICKER INFO
+  }// END OF TICKER FUNCTION
+
+  //APPEND STOCKS THAT CAME BACK TO TICKER TAPE:
+  function callQuotes(){
+    for(var e=0; e < tickerStocks.length; e++){
+      ticker(tickerStocks[e]);
+      if(e === tickerStocks.length -1)startTicker();
+    }
+  }
+
+  //MOVE TICKER TAPE FUNCTION:
+  function moveTicker(){
+    if (tickerTape.css("margin-left") == tickerLength){
+      tickerTape.css("margin-left","90");
+    }
+    tickerTape.css('margin-left','-=3');
+  }
+  function startTicker(){
+    setInterval(moveTicker,50);
+  }
 
 }); //CLOSE JQUERY ON PAGE LOAD FUNCTION
