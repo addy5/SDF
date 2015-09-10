@@ -10,7 +10,7 @@ var user;
 var tickerStocks = ['TSLA','AAPL','GS','YHOO','GOOG','FB','ADR','TWX','AMZN','NFLX','BABA','MSFT','XOM','BAC','DIS','JPM','PG','INTC'];
 var marginCount;
 var tickerLength;
-var historyLog = {};
+var historyLog;
 
 var dataToPlot = [];
 
@@ -101,6 +101,7 @@ function drawChart(a,b,c,d,e) {
   chart.draw(data, options);
 }
 
+
 //LOAD GOOGLE LINE VISUALIZATION:
 function drawLineChart() {
   var data = google.visualization.arrayToDataTable(dataToPlot);
@@ -113,6 +114,22 @@ function drawLineChart() {
     };
 
   var chart = new google.visualization.LineChart(document.getElementById('priceChart'));
+
+  chart.draw(data, options);
+}
+
+//LOAD HISTORY SUMMARY LINE VISUALIZATION:
+function drawSummaryLine(summaryData) {
+  var data = google.visualization.arrayToDataTable(summaryData);
+
+  var options = {
+    title: 'Your Fund History',
+    curveType: 'none',
+    legend: { position: 'right' },
+    colors: ['#009688']
+    };
+
+  var chart = new google.visualization.LineChart(document.getElementById('summaryGraph'));
 
   chart.draw(data, options);
 }
@@ -175,15 +192,25 @@ $(document).ready(function() {
         balance.text('$' + data.balance);
         console.log(user);
 
+        if(user.holdings.length === 0){
+          marginCount = tickerStocks.length * 190;
+          tickerLength = '-'+marginCount+'px';
+          callQuotes();
+        }
+
         for(var b=0; b < user.holdings.length; b++){
           articleArray.push(user.holdings[b].name.split(" ")[0]);
           tickerStocks.push(user.holdings[b].symbol);
           if(b == user.holdings.length-1){
             callQuotes();
-            marginCount = tickerStocks.length * 210 + (tickerStocks.length % 2);
+            marginCount = tickerStocks.length * 190;
             tickerLength = '-'+marginCount+'px';
           }
         }
+
+        historyLog = user.history;
+        historyLog.unshift(["Date","Value"],["Start",100000]);
+        drawSummaryLine(historyLog);
 
         //FILL NEWS FEED BASED ON USERS HOLDINGS:
         for(var g=0; g < 8; g++){
@@ -413,16 +440,16 @@ $(document).ready(function() {
       url: stockQuery,
       success: function(data){
         // console.log(data.query.results.quote);
-
+        console.log(data);
         if(data.query.results.quote.Change[0] === '+'){
 
           tickerTape.append('<li class="tickerLi"> |&nbsp;&nbsp; '+ data.query.results.quote.symbol +' last: '+ data.query.results.quote.LastTradePriceOnly + ' change: <span  style="color:rgba(0,130,0,0.85);">'+ data.query.results.quote.Change +'</span> &nbsp;&nbsp;| </li>');
         } else {
           tickerTape.append('<li class="tickerLi"> |&nbsp;&nbsp;  '+ data.query.results.quote.symbol +' last: '+ data.query.results.quote.LastTradePriceOnly + ' change: <span  style="color:red;">'+ data.query.results.quote.Change +' </span> &nbsp;&nbsp;| </li>');
         }
-      }//END AJAX SUCCESS FUNCTION
+      } //END AJAX SUCCESS FUNCTION
     }); //END AJAX REQUEST FOR TICKER INFO
-  }// END OF TICKER FUNCTION
+  } //END OF TICKER FUNCTION
 
   //APPEND STOCKS THAT CAME BACK TO TICKER TAPE:
   function callQuotes(){
@@ -438,6 +465,7 @@ $(document).ready(function() {
   //MOVE TICKER TAPE FUNCTION:
   function moveTicker(){
     if(tickerTape.css("margin-left") == tickerLength){
+      console.log('ping!');
       tickerTape.css("margin-left","-90px");
     }
     tickerTape.css('margin-left','-=2');

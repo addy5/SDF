@@ -2,6 +2,29 @@
 var User = require('../models/user.js');
 var jwt = require('jsonwebtoken');
 var cookieParser = require('cookie-parser');
+var request = require('request');
+
+var arrayOfStocks = [];
+var currentValues = {};
+
+//CREATE CURRENT DATE VARIABLE:
+var date = new Date();
+var day = date.getDate();
+var year = date.getFullYear();
+var month = date.getMonth() + 1;
+if(month < 10){
+  month = '0' + month.toString();
+} else {
+  month = month.toString();
+}
+if(day < 10){
+  day = '0' + day.toString();
+} else {
+  day = day.toString();
+}
+year = year.toString();
+var today = month + "-" + day + "-" + year;
+//END CREATE TODAY FUNCTION
 
 //**** TOKEN CONFIG ***********
 var superSecret = 'iamtherealbatman';
@@ -25,19 +48,67 @@ function createUser(req,res){
         res.send(err);
       }
     }
-    res.json({message:"successful", redirect:"/"});
+    res.json({message:"successful", redirect:"/map"});
   });
 
 } //CLOSE CREATE NEW USER FUNCTION
 
 //****** SHOW All USERS ***********
-function getAll(req,res){
+function getAll(req,res,logThis){
   User.find({}, function(err, users){
-    if(err) res.send(err);    
+    if(err) res.send(err);
+
+    //GET EOD BALANCE FOR EACH USER:
+    for(i=0; i< users.length; i++){
+      var user = users[i];
+
+      for(var h=0; h < user.holdings.length; h++){
+        if(arrayOfStocks.indexOf(user.holdings[h].symbol) === -1){
+          arrayOfStocks.push(user.holdings[h].symbol);
+        }
+      } //CLOSE PUSHING OF ALL STOCKS LIST
+    } //CLOSE LOOP THROUGH ALL USERS TO GET ALL STOCKS
+
+    //GET ACTUAL QUOTE FOR EACH STOCK IN STOCK ARRAY:
+    // for(n=0; n < arrayOfStocks.length;n++){
+    //   getPrice(arrayOfStocks[n]);
+    // }
+
+    arrayOfStocks.forEach(function(stock){
+      getPrice(stock);
+    })
+
+    function logStocks(){
+      console.log(currentValues);
+      for(d=0; d < users.length; d++){
+        var user = users[d];
+        var todayBalance = user.balance;
+        for(p=0; p < user.holdings.length; p++){
+          todayBalance = todayBalance + (currentValues[user.holdings[p].symbol] * parseInt(user.holdings[p].volume) );
+        }
+        user.history.push([today, todayBalance]);
+        user.save(function(err){
+          if(err) console.log(err);
+        });
+      } //END LOOP THROUGH ALL USERS
+    } //END LOGSTOCK FUNCTION TO SAVE EOD BALANCE TO HISTORY
+
+    // setTimeout(logStocks,2000);
+    logStocks();
     res.json(users);
   });
 } //CLOSE GET ALL USERS FUNCTION
 
+
+function getPrice(symbol){
+  var url = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22'+symbol+'%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
+  request(url, function(error, response, body){
+    var data = JSON.parse(body);
+    var holdingValue = parseFloat(data.query.results.quote.LastTradePriceOnly);
+    currentValues[symbol] = holdingValue;
+    // console.log(currentValues);
+  });
+}
 
 //****** GET AND SHOW INDIVIDUAL USER ***********
 function showUser(req,res){
