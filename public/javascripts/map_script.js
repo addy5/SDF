@@ -7,7 +7,11 @@ var lastDay = day;
 var lastYear = year;
 var purchase = {};
 var user;
+var userHoldings = [];
+
 var tickerStocks = ['TSLA','AAPL','GS','YHOO','GOOG','FB','ADR','TWX','AMZN','NFLX','BABA','MSFT','XOM','BAC','DIS','JPM','PG','INTC'];
+var tickerStockObjects = {};
+
 var marginCount;
 var tickerLength;
 var historyLog;
@@ -100,7 +104,6 @@ function drawChart(a,b,c,d,e) {
 
   chart.draw(data, options);
 }
-
 
 //LOAD GOOGLE LINE VISUALIZATION:
 function drawLineChart() {
@@ -439,6 +442,8 @@ $(document).ready(function() {
       method:'get',
       url: stockQuery,
       success: function(data){
+        tickerStockObjects[data.query.results.quote.symbol] = data.query.results.quote.LastTradePriceOnly;
+
         // console.log(data.query.results.quote);
         if(data.query.results.quote.Change[0] === '+'){
 
@@ -472,5 +477,23 @@ $(document).ready(function() {
   function startTicker(){
     setInterval(moveTicker,60);
   }
+
+  function userSummaryOfFund(){
+      user.currentBalance = user.balance;
+      user.holdings.forEach(function(stock){
+        userHoldings.push({
+              symbol: stock.symbol,
+              name: stock.name,
+              volume: stock.volume,
+              currentPrice: tickerStockObjects[stock.symbol]
+              });
+      user.currentBalance = user.currentBalance + parseFloat(tickerStockObjects[stock.symbol]) * parseFloat(stock.volume);
+      console.log(user.currentBalance);
+      }); //END LOOP THROUGH USERS STOCK
+      console.log(userHoldings);
+      console.log(user.balance);
+  } //END LOGSTOCK FUNCTION TO SAVE EOD BALANCE TO HISTORY
+
+  setTimeout(userSummaryOfFund,2000);
 
 }); //CLOSE JQUERY ON PAGE LOAD FUNCTION
