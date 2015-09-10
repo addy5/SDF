@@ -440,7 +440,6 @@ $(document).ready(function() {
       url: stockQuery,
       success: function(data){
         // console.log(data.query.results.quote);
-        console.log(data);
         if(data.query.results.quote.Change[0] === '+'){
 
           tickerTape.append('<li class="tickerLi"> |&nbsp;&nbsp; '+ data.query.results.quote.symbol +' last: '+ data.query.results.quote.LastTradePriceOnly + ' change: <span  style="color:rgba(0,130,0,0.85);">'+ data.query.results.quote.Change +'</span> &nbsp;&nbsp;| </li>');
