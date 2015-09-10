@@ -10,6 +10,7 @@ var user;
 var tickerStocks = ['TSLA','AAPL','GS','YHOO','GOOG','FB','ADR','TWX','AMZN','NFLX','BABA','MSFT','XOM','BAC','DIS','JPM','PG','INTC'];
 var marginCount;
 var tickerLength;
+var historyLog = {};
 
 var dataToPlot = [];
 
@@ -67,8 +68,9 @@ function newsFeed(newsQuery){
     }
 
     year = year.toString();
-//END OF 30 DAY DATE CONVERSION
 
+    var today = month + "-" + day + "-" + year;
+//END OF 30 DAY DATE CONVERSION
 
 //LOAD GOOGLE SCATTER AND LINE VISUALIZATION:
 google.load("visualization", "1", {packages:["corechart"]});
@@ -178,9 +180,8 @@ $(document).ready(function() {
           tickerStocks.push(user.holdings[b].symbol);
           if(b == user.holdings.length-1){
             callQuotes();
-            marginCount = tickerStocks.length * 230 + (tickerStocks.length % 2);
+            marginCount = tickerStocks.length * 210 + (tickerStocks.length % 2);
             tickerLength = '-'+marginCount+'px';
-            console.log(tickerLength);
           }
         }
 
@@ -363,6 +364,7 @@ $(document).ready(function() {
       purchase.tradeFee = totalTradeFee.text();
       purchase.oddLotFee = totalOddLotFee.text();
       purchase.totalFees = totalFees.text();
+      purchase.date = today;
 
       console.log(purchase);
       // AJAX REQUEST TO PATCH USER'S HOLDINGS (BUY):

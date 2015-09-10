@@ -33,7 +33,7 @@ function createUser(req,res){
 //****** SHOW All USERS ***********
 function getAll(req,res){
   User.find({}, function(err, users){
-    if(err) res.send(err);
+    if(err) res.send(err);    
     res.json(users);
   });
 } //CLOSE GET ALL USERS FUNCTION
