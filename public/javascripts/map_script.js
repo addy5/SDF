@@ -316,7 +316,9 @@ $(document).ready(function() {
     background.on('click', function(){
       background.fadeOut('slow');
       buyModal.fadeOut('slow');
+      sellModal.fadeOut('slow');
       sharesInput.val("");
+      sellInput.val("");
     });
 
     sharesInput.on('input', function(){
@@ -538,6 +540,7 @@ $(document).ready(function() {
 
   //SELL MODAL LISTENER AND EVENTS:
   var sellModal = $('.sellModal');
+  var sellInput = $('.sellInput');
   var modalSellTitle = $('.modalSellTitle');
   var modalSellDetails = $('.modalSellDetails');
   var totalSell = $('.totalSell');
@@ -548,16 +551,27 @@ $(document).ready(function() {
   var totalSellTag = $('.totalSellTag');
   var totalSellNet = $('.totalSellNet');
 
+  //GLOBAL SELL MODAL VARIABLES:
+  var currentSymbol;
+  var currentName;
+  var currentVolume;
+  var currentPrice;
+
+  sellInput.on('input', fillSellReview);
+
   function fillSellModal(button){
     background.fadeIn('slow');
     sellModal.fadeIn('slow');
-    var currentSymbol = $(button).children('.sellSymbol').text();
-    var currentName = $(button).children('.sellName').text();
-    var currentVolume = $(button).children('.sellVolume').text();
-    var currentPrice = $(button).children('.sellPrice').text();
-
+    currentSymbol = $(button).children('.sellSymbol').text();
+    currentName = $(button).children('.sellName').text();
+    currentVolume = $(button).children('.sellVolume').text();
+    currentPrice = $(button).children('.sellPrice').text();
     modalSellTitle.text('Selling ' + currentName);
     modalSellDetails.text('shares @ ' + currentPrice + ' per share');
+  }
+
+  function fillSellReview(){
+    totalSell.text(sellInput.val() + ' shares of ' + currentSymbol + ' x ' + currentPrice);
   }
 
 
