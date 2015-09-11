@@ -179,7 +179,7 @@ $(document).ready(function() {
     }
 
     //NAVBAR HIGHLIGHTER:
-    $("li").mouseover(function(){
+    $(".navItem").mouseover(function(){
       $(this).css('backgroundColor',"rgba(0,150,136,1)");
     }).mouseout(function(){
       $(this).css('backgroundColor',"inherit");

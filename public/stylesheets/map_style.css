@@ -281,6 +281,31 @@ a {
   background-color: inherit;
 }
 
+.holdingLi{
+  text-align: left;
+  font-size: 24px;
+}
+
+#sell{
+  min-width:980px;
+  width:80%;
+  min-height:530px;
+  border:none;
+  margin: 20px auto;
+  margin-bottom:50px;
+  position:relative;
+  text-align: center;
+  background-color:white;
+  padding-bottom:20px;
+}
+
+.userHoldings{
+  text-align:center;
+  height: 35px;
+  border: 1px solid grey;
+  line-height: 35px;
+}
+
 /* ------------INCREASE MAP SIZE FOR WEB BROWSERS------------------ */
 @media (min-width: 450px) and (max-width: 2000px) {
 
