@@ -512,9 +512,18 @@ $(document).ready(function() {
 
       $('.userCurrent').text('$' + user.currentBalance);
       $('.userCash').text('$' + user.balance);
-
   } //END LOGSTOCK FUNCTION TO SAVE EOD BALANCE TO HISTORY
 
+  var holdingsUl = $('.userHoldings');
+
+  function appendHoldings(){
+    for(k=0; k < userHoldings.length; k++){
+      var ownedStock = userHoldings[k];
+      holdingsUl.append('<li class="holdingLi">' + '<p class="sellLiSmall">'+ ownedStock.symbol + '</p>' + '<p class="sellLiBig">'+ ownedStock.name + '</p>' + '<p class="sellLiSmall">'+ ownedStock.volume + '</p>'+ '<p class="sellLi">'+ user.holdings[k].date + '</p>' + '<p class="sellLi">' + '$' + user.holdings[k].price + '</p>' + '</li>');
+    }
+  }
+
   setTimeout(userSummaryOfFund,2000);
+  setTimeout(appendHoldings,2000);
 
 }); //CLOSE JQUERY ON PAGE LOAD FUNCTION

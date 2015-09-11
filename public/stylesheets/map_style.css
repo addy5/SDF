@@ -140,6 +140,7 @@ input{
   padding: 0;
   margin: 0;
   text-decoration: underline;
+  font-size: 18px;
 }
 
 .userValue{
@@ -147,6 +148,7 @@ input{
   line-height: 20px;
   padding: 0;
   margin: 0;
+  font-size: 18px;
 }
 
 .results{
@@ -284,26 +286,62 @@ a {
 .holdingLi{
   text-align: left;
   font-size: 24px;
+  margin: 10px 0;
 }
 
+/*.holdingLi:after {
+  content:"";
+  background: rgba(0,150,136,1);
+  position: relative;
+  height: 1px;
+  width: 50%;
+}*/
+
 #sell{
-  min-width:980px;
+  min-width:920px;
   width:80%;
-  min-height:530px;
+  min-height:500px;
   border:none;
   margin: 20px auto;
   margin-bottom:50px;
   position:relative;
   text-align: center;
   background-color:white;
-  padding-bottom:20px;
+  padding: 30px;
 }
 
 .userHoldings{
   text-align:center;
   height: 35px;
-  border: 1px solid grey;
   line-height: 35px;
+  padding: 0;
+}
+
+.sellLi{
+ width: 16%;
+ height:18px;
+ margin: 0;
+ padding: 0;
+ display: inline-block;
+ font-size: 20px;
+}
+
+.sellLiSmall{
+  width: 11%;
+  height:18px;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  font-size: 20px;
+}
+
+.sellLiBig{
+  width: 30%;
+  height:18px;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  font-size: 18px;
 }
 
 /* ------------INCREASE MAP SIZE FOR WEB BROWSERS------------------ */
