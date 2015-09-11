@@ -475,6 +475,7 @@ $(document).ready(function() {
   }
   function startTicker(){
     setInterval(moveTicker,60);
+
   }
 
   function userSummaryOfFund(){
@@ -517,9 +518,11 @@ $(document).ready(function() {
   var holdingsUl = $('.userHoldings');
 
   function appendHoldings(){
+    holdingsUl.append('<li class="holdingLi blueish"><p class="sellLiSmall">Symbol</p><p class="sellLiBig">Name</p><p class="sellLiSmall">Volume</p><p class="sellLi">Puchased</p><p class="sellLi">Current Price</p></li>');
+
     for(k=0; k < userHoldings.length; k++){
       var ownedStock = userHoldings[k];
-      holdingsUl.append('<li class="holdingLi">' + '<p class="sellLiSmall">'+ ownedStock.symbol + '</p>' + '<p class="sellLiBig">'+ ownedStock.name + '</p>' + '<p class="sellLiSmall">'+ ownedStock.volume + '</p>'+ '<p class="sellLi">'+ user.holdings[k].date + '</p>' + '<p class="sellLi">' + '$' + user.holdings[k].price + '</p>' + '</li>');
+      holdingsUl.append('<li class="holdingLi">' + '<p class="sellLiSmall">'+ ownedStock.symbol + '</p>' + '<p class="sellLiBig">'+ ownedStock.name + '</p>' + '<p class="sellLiSmall">'+ ownedStock.volume + '</p>'+ '<p class="sellLi">'+ user.holdings[k].date + '</p>' + '<p class="sellLi">' + '$' + user.holdings[k].price + '</p>' + '<button class="sellStock"> Sell </button></li>');
     }
   }
 

@@ -317,6 +317,10 @@ a {
   padding: 0;
 }
 
+.blueish{
+  background-color: rgba(0,150,136,0.1);
+}
+
 .sellLi{
  width: 16%;
  height:18px;
@@ -342,6 +346,22 @@ a {
   padding: 0;
   display: inline-block;
   font-size: 18px;
+}
+
+.holdingLi:hover {
+  background-color: rgba(0,150,136,0.1);
+}
+
+.sellStock{
+  color:white;
+  background-color:rgba(211,137,0,15);
+  border-radius: 5px;
+  border: none;
+  width:80px;
+  height:28px;
+  font-size: 14px;
+  position:relative;
+  top: -3px;
 }
 
 /* ------------INCREASE MAP SIZE FOR WEB BROWSERS------------------ */
