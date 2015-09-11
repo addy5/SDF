@@ -196,7 +196,7 @@ $(document).ready(function() {
         console.log(user);
 
         if(user.holdings.length === 0){
-          marginCount = tickerStocks.length * 190;
+          marginCount = tickerStocks.length * 200 - 500;
           tickerLength = '-'+marginCount+'px';
           callQuotes();
         }
@@ -206,14 +206,13 @@ $(document).ready(function() {
           tickerStocks.push(user.holdings[b].symbol);
           if(b == user.holdings.length-1){
             callQuotes();
-            marginCount = tickerStocks.length * 190;
+            marginCount = tickerStocks.length * 200 - 500;
             tickerLength = '-'+marginCount+'px';
           }
         }
 
         historyLog = user.history;
         historyLog.unshift(["Date","Value"],["Start",100000]);
-        drawSummaryLine(historyLog);
 
         //FILL NEWS FEED BASED ON USERS HOLDINGS:
         for(var g=0; g < 8; g++){
@@ -490,20 +489,29 @@ $(document).ready(function() {
       user.currentBalance = user.currentBalance + parseFloat(tickerStockObjects[stock.symbol]) * parseFloat(stock.volume);
       console.log(user.currentBalance);
       }); //END LOOP THROUGH USERS STOCK
+      historyLog.push([today,user.currentBalance]);
+      drawSummaryLine(historyLog);
 
-      var yesterValue = user.history[user.history.length-1][1];
+      var yesterValue = user.history[user.history.length-2][1];
       var dailyChange = ((parseFloat(user.currentBalance) - yesterValue) / yesterValue).toFixed(6);
       var totalChange = ((user.currentBalance - 100000) / 100000).toFixed(6);
 
-      if(totalChange < 0) $('.userChange').css('color','red');
-      if(dailyChange < 0) $('.userDaily').css('color','red');
+      if(totalChange < 0){
+        $('.userChange').text("-" + totalChange + "%");
+        $('.userChange').css('color','red');
+      } else{
+        $('.userChange').text("+" + totalChange + "%");
+      }
+
+      if(dailyChange < 0){
+        $('.userDaily').text("-" + dailyChange + "%");
+        $('.userDaily').css('color','red');
+      } else{
+        $('.userDaily').text("+" + dailyChange + "%");
+      }
 
       $('.userCurrent').text('$' + user.currentBalance);
       $('.userCash').text('$' + user.balance);
-      console.log(yesterValue);
-
-      $('.userDaily').text(dailyChange + "%");
-      $('.userChange').text(totalChange + "%");
 
   } //END LOGSTOCK FUNCTION TO SAVE EOD BALANCE TO HISTORY
 
