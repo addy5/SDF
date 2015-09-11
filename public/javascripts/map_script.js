@@ -29,7 +29,7 @@ function randomNum(num){
 
 //FILL NEWS SIDEBAR WITH RECENT RELATED NY TIMES ARTICLES:
 function newsFeed(newsQuery){
-  var nyTimes = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q='+ newsQuery +'&page=1&sort=newest&api-key=ba627640adb004fc3d5047fc6e33a8c3:19:72915330';
+  var nyTimes = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q='+ newsQuery +'&page=1&sort=newest&api-key=ba627640adb004fc3d5047fc6e33a8c3:19:72915330';
 
     $.ajax({
       method: 'get',
