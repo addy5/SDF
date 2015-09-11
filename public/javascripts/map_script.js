@@ -522,10 +522,10 @@ $(document).ready(function() {
 
     for(k=0; k < userHoldings.length; k++){
       var ownedStock = userHoldings[k];
-      holdingsUl.append('<li class="holdingLi">' + '<p class="sellLiSmall">'+ ownedStock.symbol + '</p>' + '<p class="sellLiBig">'+ ownedStock.name + '</p>' + '<p class="sellLiSmall">'+ ownedStock.volume + '</p>'+ '<p class="sellLi">'+ user.holdings[k].date + '</p>' + '<p class="sellLi">' + '$' + user.holdings[k].price + '</p>' + '<button class="sellStock"> Sell </button></li>');
+      holdingsUl.append('<li class="holdingLi">' + '<p class="sellLiSmall">'+ ownedStock.symbol + '</p>' + '<p class="sellLiBig">'+ ownedStock.name + '</p>' + '<p class="sellLiSmall">'+ ownedStock.volume + '</p>'+ '<p class="sellLi">'+ user.holdings[k].date + '</p>' + '<p class="sellLi">' + '$' + tickerStockObjects[user.holdings[k].symbol] + '</p>' + '<button class="sellStock"> Sell </button></li>');
     }
   }
-
+  
   setTimeout(userSummaryOfFund,2000);
   setTimeout(appendHoldings,2000);
 
