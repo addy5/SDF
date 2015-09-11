@@ -490,8 +490,21 @@ $(document).ready(function() {
       user.currentBalance = user.currentBalance + parseFloat(tickerStockObjects[stock.symbol]) * parseFloat(stock.volume);
       console.log(user.currentBalance);
       }); //END LOOP THROUGH USERS STOCK
-      console.log(userHoldings);
-      console.log(user.balance);
+
+      var yesterValue = user.history[user.history.length-1][1];
+      var dailyChange = ((parseFloat(user.currentBalance) - yesterValue) / yesterValue).toFixed(6);
+      var totalChange = ((user.currentBalance - 100000) / 100000).toFixed(6);
+
+      if(totalChange < 0) $('.userChange').css('color','red');
+      if(dailyChange < 0) $('.userDaily').css('color','red');
+
+      $('.userCurrent').text('$' + user.currentBalance);
+      $('.userCash').text('$' + user.balance);
+      console.log(yesterValue);
+
+      $('.userDaily').text(dailyChange + "%");
+      $('.userChange').text(totalChange + "%");
+
   } //END LOGSTOCK FUNCTION TO SAVE EOD BALANCE TO HISTORY
 
   setTimeout(userSummaryOfFund,2000);
