@@ -511,22 +511,58 @@ $(document).ready(function() {
         $('.userDaily').text("+" + dailyChange + "%");
       }
 
-      $('.userCurrent').text('$' + user.currentBalance);
+      $('.userCurrent').text('$' +  Math.round(user.currentBalance * 100) / 100);
       $('.userCash').text('$' + user.balance);
   } //END LOGSTOCK FUNCTION TO SAVE EOD BALANCE TO HISTORY
 
   var holdingsUl = $('.userHoldings');
 
   function appendHoldings(){
-    holdingsUl.append('<li class="holdingLi blueish"><p class="sellLiSmall">Symbol</p><p class="sellLiBig">Name</p><p class="sellLiSmall">Volume</p><p class="sellLi">Puchased</p><p class="sellLi">Current Price</p></li>');
+    holdingsUl.append('<li class="holdingLi blueish"><p class="sellLiSmall">Symbol</p><p class="sellLiBig" style="font-size:20px;">Name</p><p class="sellLiSmall">Volume</p><p class="sellLi">Puchased</p><p class="sellLi">Current Price</p></li>');
 
     for(k=0; k < userHoldings.length; k++){
       var ownedStock = userHoldings[k];
-      holdingsUl.append('<li class="holdingLi">' + '<p class="sellLiSmall">'+ ownedStock.symbol + '</p>' + '<p class="sellLiBig">'+ ownedStock.name + '</p>' + '<p class="sellLiSmall">'+ ownedStock.volume + '</p>'+ '<p class="sellLi">'+ user.holdings[k].date + '</p>' + '<p class="sellLi">' + '$' + tickerStockObjects[user.holdings[k].symbol] + '</p>' + '<button class="sellStock"> Sell </button></li>');
+      holdingsUl.append('<li class="holdingLi">' + '<p class="sellLiSmall sellSymbol">'+ ownedStock.symbol + '</p>' + '<p class="sellLiBig sellName">'+ ownedStock.name + '</p>' + '<p class="sellLiSmall sellVolume">'+ ownedStock.volume + '</p>'+ '<p class="sellLi">'+ user.holdings[k].date + '</p>' + '<p class="sellLi sellPrice">$' + tickerStockObjects[user.holdings[k].symbol] + '</p><button class="sellStock"> Sell </button></li>');
     }
+    sellListener();
   }
-  
+
+  //SELL HOLDING FUNCTION:
+  function sellListener(){
+    $('.sellStock').on('click', function(){
+      // console.log($(this).parent().get(0));
+      var self = $(this).parent().get(0);
+      fillSellModal(self);
+    });
+  }
+
+  //SELL MODAL LISTENER AND EVENTS:
+  var sellModal = $('.sellModal');
+  var modalSellTitle = $('.modalSellTitle');
+  var modalSellDetails = $('.modalSellDetails');
+  var totalSell = $('.totalSell');
+  var totalSellPrice = $('.totalSellPrice');
+  var totalSellTradeFee = $('.totalSellTradeFee');
+  var totalSellOddLot = $('.totalSellOddLot');
+  var totalSellOddLotFee = $('.totalSellOddLotFee');
+  var totalSellTag = $('.totalSellTag');
+  var totalSellNet = $('.totalSellNet');
+
+  function fillSellModal(button){
+    background.fadeIn('slow');
+    sellModal.fadeIn('slow');
+    var currentSymbol = $(button).children('.sellSymbol').text();
+    var currentName = $(button).children('.sellName').text();
+    var currentVolume = $(button).children('.sellVolume').text();
+    var currentPrice = $(button).children('.sellPrice').text();
+
+    modalSellTitle.text('Selling ' + currentName);
+    modalSellDetails.text('shares @ ' + currentPrice + ' per share');
+  }
+
+
   setTimeout(userSummaryOfFund,2000);
   setTimeout(appendHoldings,2000);
+  // setTimeout(sellListener,3000);
 
 }); //CLOSE JQUERY ON PAGE LOAD FUNCTION
