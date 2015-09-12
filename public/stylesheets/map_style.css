@@ -252,6 +252,10 @@ input{
   position: relative;
 }
 
+.buyInvoice{
+  display:none;
+}
+
 .confirmButton{
   width: 15%;
   min-width: 100px;
@@ -264,7 +268,6 @@ input{
   background-color: rgba(0,150,136,1);
   margin: 10px 5px;
   border: none;
-  display: none;
 }
 
 .confirmSell{
@@ -279,7 +282,6 @@ input{
   background-color: rgba(0,150,136,1);
   margin: 10px 5px;
   border: none;
-  display: none;
 }
 
 .cancelButton {
@@ -294,7 +296,6 @@ input{
   background-color: #D9534F;
   margin: 10px 5px;
   border: none;
-  display: none;
 }
 
 .cancelSell{
@@ -309,22 +310,6 @@ input{
   background-color: #D9534F;
   margin: 10px 5px;
   border: none;
-  display: none;
-}
-
-.confirmButton{
-  width: 15%;
-  min-width: 100px;
-  height:40px;
-  color: white;
-  font-size: 16px;
-  border-radius: 5px;
-  text-align: center;
-  line-height: 30px;
-  background-color: rgba(0,150,136,1);
-  margin: 10px 5px;
-  border: none;
-  display: none;
 }
 
 a {

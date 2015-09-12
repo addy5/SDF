@@ -21,29 +21,30 @@ var dataToPlot = [];
 var articleArray = ['NYSE','Dow Jones','Wall Street','finance','nasdaq','stock markets','investing'];
 var articleFeed = $('.articleFeed');
 
-//RANDOM NUMBER SELECTOR FROM 1 TO 10:
+//RANDOM NUMBER SELECTOR FROM 1 TO RANGE:
 function randomNum(num){
   smallNum = Math.random();
   return Math.floor( smallNum * num );
 }
 
-//FILL NEWS SIDEBAR WITH RECENT RELATED NY TIMES ARTICLES:
-function newsFeed(newsQuery){
-  var nyTimes = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q='+ newsQuery +'&page=1&sort=newest&api-key=ba627640adb004fc3d5047fc6e33a8c3:19:72915330';
+//SHUFFLE NUMBERS IN A ARRAY FUNCTION:
+function shuffle(o){
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+}
 
-    $.ajax({
-      method: 'get',
-      url: nyTimes,
-      success: function(data){
+//CAPITALIIZE PROTOTYPE FOR STRINGS (USED TO CAPITALIZE DAYS):
+String.prototype.capitalize = function(){
+  var wordNoFirstLetter = [];
+  var firstLetter = this[0].toUpperCase();
+  for(var i = 1; i < this.length; i+=1){
+    wordNoFirstLetter.push(this[i]);
+  }
 
-        articleFeed.append('<p style="padding: 1px 15px; margin: 1px 2px; text-align:left; font-size: 20px;">' + data.response.docs[0].headline.main +'</p>' + '<p style="padding: 0 15px; text-align:left; margin:1px 2px 30px 2px;">' + data.response.docs[0].snippet +'..<a style="color:blue" href="' + data.response.docs[0].web_url + '">'+ 'read more </a></p>');
+  return(firstLetter + wordNoFirstLetter.join(""));
+};
 
-      } //END AJAX SUCCESS FUNCTION
-    }); //END AJAX CALL TO GET NY TIMES ARTICLES
-} //END FILL NEWSFEED FUNCTION
-
-
-//CONVERT DATE INTO STRINGS FOR 30 DAY PRICE HISTORY
+//GET CURRENT DATE AND THE 30TH DAYS EARLIER:
     if(month < 10){
       month = '0' + month.toString();
     } else {
@@ -76,13 +77,28 @@ function newsFeed(newsQuery){
     var today = month + "-" + day + "-" + year;
 //END OF 30 DAY DATE CONVERSION
 
+//FILL NEWS SIDEBAR WITH RECENT RELATED NY TIMES ARTICLES:
+function newsFeed(newsQuery){
+  var nyTimes = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q='+ newsQuery +'&page=1&sort=newest&api-key=ba627640adb004fc3d5047fc6e33a8c3:19:72915330';
+
+    $.ajax({
+      method: 'get',
+      url: nyTimes,
+      success: function(data){
+
+        articleFeed.append('<p style="padding: 1px 15px; margin: 1px 2px; text-align:left; font-size: 20px;">' + data.response.docs[0].headline.main +'</p>' + '<p style="padding: 0 15px; text-align:left; margin:1px 2px 30px 2px;">' + data.response.docs[0].snippet +'..<a style="color:blue" href="' + data.response.docs[0].web_url + '">'+ 'read more </a></p>');
+
+      } //END AJAX SUCCESS FUNCTION
+    }); //END AJAX CALL TO GET NY TIMES ARTICLES
+} //END FILL NEWSFEED FUNCTION
+
 //LOAD GOOGLE SCATTER AND LINE VISUALIZATION:
 google.load("visualization", "1", {packages:["corechart"]});
 var buyChart = $('#buyChart');
 var priceChart = $('#priceChart');
 
 
-//GOOGLE PRICE SCATTER PLOT:
+//GOOGLE PRICE SUMMARY SCATTER PLOT:
 function drawChart(a,b,c,d,e) {
   var data = google.visualization.arrayToDataTable(
     [  ['Data', 'Price'],
@@ -105,7 +121,7 @@ function drawChart(a,b,c,d,e) {
   chart.draw(data, options);
 }
 
-//LOAD GOOGLE LINE VISUALIZATION:
+//DRAW GOOGLE 30 DAY PRICE LINE VISUALIZATION:
 function drawLineChart() {
   var data = google.visualization.arrayToDataTable(dataToPlot);
 
@@ -121,7 +137,7 @@ function drawLineChart() {
   chart.draw(data, options);
 }
 
-//LOAD HISTORY SUMMARY LINE VISUALIZATION:
+//LOAD TOTAL FUND HISTORY LINE VISUALIZATION:
 function drawSummaryLine(summaryData) {
   var data = google.visualization.arrayToDataTable(summaryData);
 
@@ -137,27 +153,16 @@ function drawSummaryLine(summaryData) {
   chart.draw(data, options);
 }
 
-//CAPITALIIZE PROTOTYPE FOR STRINGS (USED TO CAPITALIZE DAYS):
-String.prototype.capitalize = function(){
-  var wordNoFirstLetter = [];
-  var firstLetter = this[0].toUpperCase();
-  for(var i = 1; i < this.length; i+=1){
-    wordNoFirstLetter.push(this[i]);
-  }
-
-  return(firstLetter + wordNoFirstLetter.join(""));
-};
-
 
 //****** JQUERY FUNCTIONS AND FUNCTION CALL AT PAGE LOAD ********
 $(document).ready(function() {
 
     //DELETE COOKIE FUNCTION UPON LOGGING OUT:
-    function delete_cookie( name ) {
+    function delete_cookie(name) {
       document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
 
-    //*** APPEND LOGIN OR LOG OUT BUTTON TO NAV DEPENDING IF COOKIES PRESENT:
+    //*** APPEND LOGIN OR LOG OUT BUTTON TO NAV DEPENDING IF COOKIE IS PRESENT:
     var ul = $('.navBar');
     var loginSpan = $('.login');
 
@@ -198,27 +203,39 @@ $(document).ready(function() {
         if(user.holdings.length === 0){
           marginCount = tickerStocks.length * 200 - 500;
           tickerLength = '-'+marginCount+'px';
+          shuffle(tickerStocks);
           callQuotes();
-        }
-
-        for(var b=0; b < user.holdings.length; b++){
-          articleArray.push(user.holdings[b].name.split(" ")[0]);
-          tickerStocks.push(user.holdings[b].symbol);
-          if(b == user.holdings.length-1){
-            callQuotes();
-            marginCount = tickerStocks.length * 200 - 500;
-            tickerLength = '-'+marginCount+'px';
-          }
-        }
+        } else {
+          for(var b=0; b < user.holdings.length; b++){
+            articleArray.push(user.holdings[b].name.split(" ")[0]);
+            tickerStocks.push(user.holdings[b].symbol);
+            if(b == user.holdings.length-1){
+              shuffle(tickerStocks);
+              callQuotes();
+              marginCount = tickerStocks.length * 200 - 500;
+              tickerLength = '-'+marginCount+'px';
+            } //END IF CHECK FOR HOLDINGS LENGTH
+          } //END FOR LOOP THROUGH USER HOLDINGS
+        } //CLOSE ELSE TO LOOP USERS HOLDINGS AND APPEND STOCK TICKERS
 
         historyLog = user.history;
         historyLog.unshift(["Date","Value"],["Start",100000]);
 
         //FILL NEWS FEED BASED ON USERS HOLDINGS:
+        var avoidRepeatArray = [];
         for(var g=0; g < 8; g++){
-          var currentArticle = randomNum(articleArray.length);
-          newsFeed(articleArray[currentArticle]);
-        }
+          var r = false;
+          var select;
+          while(r === false){
+            select = randomNum(articleArray.length);
+            if(avoidRepeatArray.indexOf(select) === -1){
+              avoidRepeatArray.push(select);
+              r = true;
+            }
+          } //EXIT NO REPEAT CHECK
+          newsFeed(articleArray[select]);
+        } //EXIT FOR LOOP TO GET AND DISPLAY NY TIMES ARTICLES
+
       } //END AJAX SUCCESS FUNCTION
     }); //ENDS AJAX REQUEST TO SHOW USER
 
@@ -248,7 +265,7 @@ $(document).ready(function() {
       return null;
     });
 
-// https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22YHOO%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys
+    //YAHOO YQL FINANCE API CALL EXAMPLE: https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22YHOO%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys
 
     //FUNCTION TO GET CURRENT STOCK QUOTES BASE ON SYMBOL:
     function runQuote(){
@@ -268,7 +285,7 @@ $(document).ready(function() {
           setTimeout(drawChart(parseFloat(data.query.results.quote.LastTradePriceOnly),parseFloat(data.query.results.quote.DaysHigh),parseFloat(data.query.results.quote.DaysLow),parseFloat(data.query.results.quote.YearHigh),parseFloat(data.query.results.quote.YearLow)),100);
         });
 
-    }
+    } //END RUN QUOTE FOR RUN STOCK
 
     //FUNCTION TO GET 30 DAY PRICE HISTORY BASED ON SYMBOL:
     function runPriceHistory(){
@@ -286,7 +303,7 @@ $(document).ready(function() {
         }
         setTimeout(drawLineChart,500);
       });
-    }
+    } //END 30 DAY PRICE HISTORY QUOTE
 
     //BUY FUNCTIONS AND HANDLERS:
     var buyButton = $('.buyButton');
@@ -304,6 +321,7 @@ $(document).ready(function() {
     var totalFees = $('.totalFees');
     var total = $('.total');
 
+    var buyInvoice = $('.buyInvoice');
     var oddFee = 0;
 
     buyButton.on('click', function(){
@@ -316,6 +334,7 @@ $(document).ready(function() {
     background.on('click', function(){
       background.fadeOut('slow');
       buyModal.fadeOut('slow');
+      buyInvoice.hide();
       sellModal.fadeOut('slow');
       sharesInput.val("");
       sellInput.val("");
@@ -325,28 +344,9 @@ $(document).ready(function() {
       totalSummary.text(sharesInput.val() + ' shares of ' + symbol.text() + ' x ' + price.text());
 
       if( isNaN(parseInt(sharesInput.val()) ) || sharesInput.val() === 0 ){
-        cancelButton.hide();
-        confirmButton.hide();
-        totalSummary.hide();
-        totalPrice.hide();
-        totalTradeFee.hide();
-        totalTrade.hide();
-        totalOddLot.hide();
-        totalOddLotFee.hide();
-        totalFees.hide();
-        total.hide();
-
-      } else{
-        cancelButton.show();
-        confirmButton.show();
-        totalSummary.show();
-        totalPrice.show();
-        totalTradeFee.show();
-        totalTrade.show();
-        totalOddLot.show();
-        totalOddLotFee.show();
-        totalFees.show();
-        total.show();
+        buyInvoice.hide();
+      } else {
+        buyInvoice.show();
       }
 
       totalPrice.text( '$' +  (parseInt(sharesInput.val()) * parseFloat(price.text())).toFixed(2) );
@@ -373,16 +373,7 @@ $(document).ready(function() {
       background.fadeOut('slow');
       buyModal.fadeOut('slow');
       sharesInput.val("");
-      cancelButton.hide();
-      confirmButton.hide();
-      totalSummary.hide();
-      totalPrice.hide();
-      totalTradeFee.hide();
-      totalTrade.hide();
-      totalOddLot.hide();
-      totalOddLotFee.hide();
-      totalFees.hide();
-      total.hide();
+      buyInvoice.hide();
     });
 
     var confirmButton = $('.confirmButton');
@@ -397,7 +388,6 @@ $(document).ready(function() {
       purchase.totalFees = totalFees.text();
       purchase.date = today;
 
-      console.log(purchase);
       // AJAX REQUEST TO PATCH USER'S HOLDINGS (BUY):
       $.ajax({
         method: "patch",
@@ -406,7 +396,6 @@ $(document).ready(function() {
         contentType: 'application/json; charset=UTF-8',
         dataType : 'json',
         success: function(data){
-            console.log(data);
 
             //REDIRECT IF SERVER RESPONSE HAS REDIRECT KEY:
             if(data.redirect){
@@ -475,9 +464,9 @@ $(document).ready(function() {
     }
     tickerTape.css('margin-left','-=2');
   }
+
   function startTicker(){
     setInterval(moveTicker,60);
-
   }
 
   function userSummaryOfFund(){
@@ -545,6 +534,7 @@ $(document).ready(function() {
   var modalSellDetails = $('.modalSellDetails');
   var totalSell = $('.totalSell');
   var totalSellPrice = $('.totalSellPrice');
+  var totalSellTrade = $('.totalSellTrade');
   var totalSellTradeFee = $('.totalSellTradeFee');
   var totalSellOddLot = $('.totalSellOddLot');
   var totalSellOddLotFee = $('.totalSellOddLotFee');
@@ -572,11 +562,28 @@ $(document).ready(function() {
 
   function fillSellReview(){
     totalSell.text(sellInput.val() + ' shares of ' + currentSymbol + ' x ' + currentPrice);
-  }
+    var currentPriceParsedNumber = currentPrice.split('');
+    currentPriceParsedNumber.shift();
+    var sellGross = parseInt(sellInput.val()) * parseFloat(currentPriceParsedNumber.join(''));
+    var sellTradeFees = 24;
+    var sellOddLot;
 
+    if(sellInput.val() % 100 === 0){
+      sellOddLot = 0;
+    } else{
+      sellOddLot = 7;
+    }
+
+    totalSellPrice.text('$' + sellGross.toFixed(2));
+    totalSellTrade.text('Trade Fee');
+    totalSellTradeFee.text('$' + sellTradeFees);
+    totalSellOddLot.text('Odd Lot Charge');
+    totalSellOddLotFee.text('$' + sellOddLot);
+    totalSellTag.text('Total');
+    totalSellNet.text('$' + (sellGross + sellTradeFees + sellOddLot).toFixed(2));
+  }
 
   setTimeout(userSummaryOfFund,2000);
   setTimeout(appendHoldings,2000);
-  // setTimeout(sellListener,3000);
 
 }); //CLOSE JQUERY ON PAGE LOAD FUNCTION
