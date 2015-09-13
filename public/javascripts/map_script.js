@@ -208,7 +208,9 @@ $(document).ready(function() {
         } else {
           for(var b=0; b < user.holdings.length; b++){
             articleArray.push(user.holdings[b].name.split(" ")[0]);
-            tickerStocks.push(user.holdings[b].symbol);
+
+            if(tickerStocks.indexOf(user.holdings[b].symbol) === -1){ tickerStocks.push(user.holdings[b].symbol);
+            }
             if(b == user.holdings.length-1){
               shuffle(tickerStocks);
               callQuotes();
