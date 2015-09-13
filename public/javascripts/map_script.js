@@ -485,21 +485,21 @@ $(document).ready(function() {
       drawSummaryLine(historyLog);
 
       var yesterValue = user.history[user.history.length-2][1];
-      var dailyChange = ((parseFloat(user.currentBalance) - yesterValue) / yesterValue).toFixed(6);
-      var totalChange = ((user.currentBalance - 100000) / 100000).toFixed(6);
+      var dailyChange = ((parseFloat(user.currentBalance) - yesterValue) / yesterValue);
+      var totalChange = ((user.currentBalance - 100000) / 100000);
 
       if(totalChange < 0){
-        $('.userChange').text("-" + totalChange + "%");
+        $('.userChange').text("-" + (totalChange * 100).toFixed(4) + "%");
         $('.userChange').css('color','red');
       } else{
-        $('.userChange').text("+" + totalChange + "%");
+        $('.userChange').text("+" + (totalChange * 100).toFixed(4) + "%");
       }
 
       if(dailyChange < 0){
-        $('.userDaily').text("-" + dailyChange + "%");
+        $('.userDaily').text("-" + (dailyChange * 100).toFixed(4) + "%");
         $('.userDaily').css('color','red');
       } else{
-        $('.userDaily').text("+" + dailyChange + "%");
+        $('.userDaily').text("+" + (dailyChange * 100).toFixed(4) + "%");
       }
 
       $('.userCurrent').text('$' +  Math.round(user.currentBalance * 100) / 100);

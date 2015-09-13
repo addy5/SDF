@@ -24,7 +24,6 @@ body{
   color:white;
   background-color: inherit;
   font-size: 18px;
-  overflow: hidden;
 }
 
 a{
@@ -185,7 +184,7 @@ input{
   width: 500px;
   height: 440px;
   position: absolute;
-  top: 1350px;
+  top: 1410px;
   left: 50%;
   margin-left: -250px;
   border: 1px solid grey;
