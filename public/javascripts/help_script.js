@@ -76,8 +76,8 @@ $(document).ready(function() {
   var helpButton3 = $('.slideControl3');
 
   var help1 = 'Log in and press "Summary" to view current holdings, historical performance and options.';
-  var help2 = 'Buy / Sell analysis can be found in the [placeholder] tab.';
-  var help3 = 'Use relevant articles and portfolio analysis tab to rebalance or blog about your thoughts.';
+  var help2 = 'Click "Buy" or scroll down to search securities to add to your portfolio';
+  var help3 = 'Click "Sell" or continue scrolling to sell securities out of of your portfolio.';
 
   //SLIDER FUNCTION
   function slideTutorial(){

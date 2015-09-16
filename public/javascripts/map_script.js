@@ -18,7 +18,7 @@ var historyLog;
 
 var dataToPlot = [];
 
-var articleArray = ['NYSE','Dow Jones','Wall Street','finance','nasdaq','stock markets','investing'];
+var articleArray = ['NYSE','Dow Jones','Wall Street','finance','nasdaq','stock markets','investing','global market'];
 var articleFeed = $('.articleFeed');
 
 //RANDOM NUMBER SELECTOR FROM 1 TO RANGE:
@@ -79,6 +79,7 @@ String.prototype.capitalize = function(){
 
 //FILL NEWS SIDEBAR WITH RECENT RELATED NY TIMES ARTICLES:
 function newsFeed(newsQuery){
+  console.log(articleArray);
   var nyTimes = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q='+ newsQuery +'&page=1&sort=newest&api-key=ba627640adb004fc3d5047fc6e33a8c3:19:72915330';
 
     $.ajax({
@@ -215,7 +216,7 @@ $(document).ready(function() {
               shuffle(tickerStocks);
               callQuotes();
               marginCount = tickerStocks.length * 200 - 500;
-              tickerLength = '-'+marginCount+'px';
+              tickerLength = '-' + marginCount + 'px';
             } //END IF CHECK FOR HOLDINGS LENGTH
           } //END FOR LOOP THROUGH USER HOLDINGS
         } //CLOSE ELSE TO LOOP USERS HOLDINGS AND APPEND STOCK TICKERS
@@ -284,7 +285,7 @@ $(document).ready(function() {
           yearlyHigh.text(data.query.results.quote.YearHigh);
           yearlyLow.text(data.query.results.quote.YearLow);
 
-          setTimeout(drawChart(parseFloat(data.query.results.quote.LastTradePriceOnly),parseFloat(data.query.results.quote.DaysHigh),parseFloat(data.query.results.quote.DaysLow),parseFloat(data.query.results.quote.YearHigh),parseFloat(data.query.results.quote.YearLow)),100);
+          setTimeout(drawChart(parseFloat(data.query.results.quote.LastTradePriceOnly),parseFloat(data.query.results.quote.DaysHigh),parseFloat(data.query.results.quote.DaysLow),parseFloat(data.query.results.quote.YearHigh),parseFloat(data.query.results.quote.YearLow)),300);
         });
 
     } //END RUN QUOTE FOR RUN STOCK
