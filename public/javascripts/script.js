@@ -34,8 +34,8 @@ $(document).ready(function() {
     $(this).css('backgroundColor',"inherit");
   });
 
-  //SUBMIT LOGIN LISTENER AND FUNCTION:
-  $('.loginButton').on('click',function(evt){
+  //LOGIN FUNCTION:
+  function login(){
     event.preventDefault();
     var email = $(".userEmail");
     var password = $(".userPassword");
@@ -50,7 +50,6 @@ $(document).ready(function() {
       success: function(data){
         console.log(data);
         //NOTES: TOKEN WILL COME BACK IN FORM OF COOKIE -SEE SERVER.JS
-
         //OTHER TOKEN HANDLERS NOT BEING USED IN THIS APP:
         // localStorage.setItem('userToken', data.access_token);
         // $.ajaxSetup({
@@ -61,10 +60,22 @@ $(document).ready(function() {
         if(data.redirect){
           window.location.href = data.redirect;
         }
-      }
-    });
-  });
+      } //CLOSE SUCCESS FUNCTION
+    }); //CLOSE AJAX FUNCTION
+  } //CLOSE LOGIN FUNCTION
 
+  //SUBMIT LOGIN LISTENER AND FUNCTION:
+  $('.loginButton').on('click',login);
+
+  var userPassword = $('.userPassword');
+
+  userPassword.on('keypress', function (e) {
+    var key = e.which || e.keyCode;
+    if (key === 13){
+       return login();
+    }
+    return null;
+  });
 
 
 }); //CLOSE JQUERY ON PAGE LOAD FUNCTION

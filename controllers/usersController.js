@@ -48,7 +48,17 @@ function createUser(req,res){
         res.send(err);
       }
     }
-    res.json({message:"successful", redirect:"/map"});
+    //CREATE TOKEN NOW THAT USER FOUND AND PW CLEARS:
+    console.log('user found and password verified, creating token..');
+    var token = jwt.sign({
+      email: user.email,
+      firstName: user.firstName },
+      superSecret,
+      { expiresInMinutes: 1440 }
+    );
+    //RETURN RESPONSE WITH TOKEN COOKIE AND REDIRECT:
+    res.cookie("token",token);
+    res.json({success: true, message: 'enjoy your token', access_token: token, redirect: '/map'});
   });
 
 } //CLOSE CREATE NEW USER FUNCTION
