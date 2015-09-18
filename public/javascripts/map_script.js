@@ -518,7 +518,7 @@ $(document).ready(function() {
 
     for(k=0; k < userHoldings.length; k++){
       var ownedStock = userHoldings[k];
-      holdingsUl.append('<li class="holdingLi">' + '<p class="sellLiSmall sellSymbol">'+ ownedStock.symbol + '</p>' + '<p class="sellLiBig sellName">'+ ownedStock.name + '</p>' + '<p class="sellLiSmall sellVolume">'+ ownedStock.volume + '</p>'+ '<p class="sellLi originalDate">'+ ownedStock.originalDate + '<p class="sellLi originalPrice">'+ ownedStock.originalPrice + '</p>' + '<p class="sellLi sellPrice">$' + tickerStockObjects[user.holdings[k].symbol] + '</p><button class="sellStock"> Sell </button></li>');
+      holdingsUl.append('<li class="holdingLi">' + '<p class="sellLiSmall sellSymbol">'+ ownedStock.symbol + '</p>' + '<p class="sellLiBig sellName">'+ ownedStock.name + '</p>' + '<p class="sellLiSmall sellVolume">'+ ownedStock.volume + '</p>'+ '<p class="sellLi originalDate">'+ ownedStock.originalDate + '<p class="sellLi originalPrice">'+ (parseFloat(ownedStock.originalPrice)).toFixed(2) + '</p>' + '<p class="sellLi sellPrice">$' + tickerStockObjects[user.holdings[k].symbol] + '</p><button class="sellStock"> Sell </button></li>');
     }
     sellListener();
   }
@@ -534,6 +534,7 @@ $(document).ready(function() {
 
   //SELL MODAL LISTENER AND EVENTS:
   var sellModal = $('.sellModal');
+  var sellInvoice = $('.sellInvoice');
   var sellInput = $('.sellInput');
   var modalSellTitle = $('.modalSellTitle');
   var modalSellDetails = $('.modalSellDetails');
@@ -555,7 +556,15 @@ $(document).ready(function() {
   var originalDate;
   var originalPrice;
 
-  sellInput.on('input', fillSellReview);
+  sellInput.on('input', function(){
+    if( isNaN(parseInt(sellInput.val()) ) || sellInput.val() === 0 || parseInt(sellInput.val() ) > parseInt(currentVolume)){
+      sellInvoice.hide();
+    } else {
+      sellInvoice.show();
+    }
+    fillSellReview();
+
+  });
 
   function fillSellModal(button){
     background.fadeIn('slow');
