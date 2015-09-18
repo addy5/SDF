@@ -79,7 +79,7 @@ String.prototype.capitalize = function(){
 
 //FILL NEWS SIDEBAR WITH RECENT RELATED NY TIMES ARTICLES:
 function newsFeed(newsQuery){
-  
+
   var nyTimes = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q='+ newsQuery +'&page=1&sort=newest&api-key=ba627640adb004fc3d5047fc6e33a8c3:19:72915330';
 
     $.ajax({
@@ -479,7 +479,9 @@ $(document).ready(function() {
               symbol: stock.symbol,
               name: stock.name,
               volume: stock.volume,
-              currentPrice: tickerStockObjects[stock.symbol]
+              currentPrice: tickerStockObjects[stock.symbol],
+              originalDate : stock.date,
+              originalPrice : stock.price
               });
       user.currentBalance = user.currentBalance + parseFloat(tickerStockObjects[stock.symbol]) * parseFloat(stock.volume);
       console.log(user.currentBalance);
@@ -512,11 +514,11 @@ $(document).ready(function() {
   var holdingsUl = $('.userHoldings');
 
   function appendHoldings(){
-    holdingsUl.append('<li class="holdingLi blueish"><p class="sellLiSmall">Symbol</p><p class="sellLiBig" style="font-size:20px;">Name</p><p class="sellLiSmall">Volume</p><p class="sellLi">Puchased</p><p class="sellLi">Current Price</p></li>');
+    holdingsUl.append('<li class="holdingLi blueish"><p class="sellLiSmall">Symbol</p><p class="sellLiBig" style="font-size:20px;">Name</p><p class="sellLiSmall">Volume</p><p class="sellLi">Puchased</p><p class="sellLi">Basis</p><p class="sellLi">Current Price</p></li>');
 
     for(k=0; k < userHoldings.length; k++){
       var ownedStock = userHoldings[k];
-      holdingsUl.append('<li class="holdingLi">' + '<p class="sellLiSmall sellSymbol">'+ ownedStock.symbol + '</p>' + '<p class="sellLiBig sellName">'+ ownedStock.name + '</p>' + '<p class="sellLiSmall sellVolume">'+ ownedStock.volume + '</p>'+ '<p class="sellLi">'+ user.holdings[k].date + '</p>' + '<p class="sellLi sellPrice">$' + tickerStockObjects[user.holdings[k].symbol] + '</p><button class="sellStock"> Sell </button></li>');
+      holdingsUl.append('<li class="holdingLi">' + '<p class="sellLiSmall sellSymbol">'+ ownedStock.symbol + '</p>' + '<p class="sellLiBig sellName">'+ ownedStock.name + '</p>' + '<p class="sellLiSmall sellVolume">'+ ownedStock.volume + '</p>'+ '<p class="sellLi originalDate">'+ ownedStock.originalDate + '<p class="sellLi originalPrice">'+ ownedStock.originalPrice + '</p>' + '<p class="sellLi sellPrice">$' + tickerStockObjects[user.holdings[k].symbol] + '</p><button class="sellStock"> Sell </button></li>');
     }
     sellListener();
   }
@@ -544,11 +546,14 @@ $(document).ready(function() {
   var totalSellTag = $('.totalSellTag');
   var totalSellNet = $('.totalSellNet');
 
+
   //GLOBAL SELL MODAL VARIABLES:
   var currentSymbol;
   var currentName;
   var currentVolume;
   var currentPrice;
+  var originalDate;
+  var originalPrice;
 
   sellInput.on('input', fillSellReview);
 
@@ -559,6 +564,9 @@ $(document).ready(function() {
     currentName = $(button).children('.sellName').text();
     currentVolume = $(button).children('.sellVolume').text();
     currentPrice = $(button).children('.sellPrice').text();
+    originalDate = $(button).children('.originalDate').text();
+    originalPrice = $(button).children('.originalPrice').text();
+
     modalSellTitle.text('Selling ' + currentName);
     modalSellDetails.text('shares @ ' + currentPrice + ' per share');
   }
@@ -588,5 +596,39 @@ $(document).ready(function() {
 
   setTimeout(userSummaryOfFund,2000);
   setTimeout(appendHoldings,2000);
+
+  var confirmSell = $('.confirmSell');
+  var cancelSell = $('.cancelSell');
+  var sale = {};
+
+  confirmSell.on('click', function(){
+    sale.symbol = currentSymbol;
+    sale.shares = sellInput.val();
+    sale.date = today;
+    sale.originalBuyDate = originalDate;
+    sale.originalBuyPrice = originalPrice;
+    sale.tradeFee = 24;
+    sale.oddLotFee = totalSellOddLotFee.text();
+    sale.net = totalSellNet.text();
+    console.log(sale);
+  });
+
+  // AJAX REQUEST TO PATCH USER'S HOLDINGS (SELL):
+  // $.ajax({
+  //   method: "patch",
+  //   url: "/users/sale", //WILL BE USING TOKEN TO FIND USER
+  //   data: JSON.stringify( {purchase: purchase} ),
+  //   contentType: 'application/json; charset=UTF-8',
+  //   dataType : 'json',
+  //   success: function(data){
+  //
+  //       //REDIRECT IF SERVER RESPONSE HAS REDIRECT KEY:
+  //       if(data.redirect){
+  //           window.location.href = data.redirect;
+  //       }
+  //   } //CLOSE AJAX SUCCESS FUNCTION
+  // }); // CLOSE AJAX PATCH REQUEST TO USER'S HOLDINGS
+
+
 
 }); //CLOSE JQUERY ON PAGE LOAD FUNCTION
