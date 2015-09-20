@@ -514,7 +514,7 @@ $(document).ready(function() {
   var holdingsUl = $('.userHoldings');
 
   function appendHoldings(){
-    holdingsUl.append('<li class="holdingLi blueish"><p class="sellLiSmall">Symbol</p><p class="sellLiBig" style="font-size:20px;">Name</p><p class="sellLiSmall">Volume</p><p class="sellLi">Puchased</p><p class="sellLi">Basis</p><p class="sellLi">Current Price</p></li>');
+    $('#sell h3').append('<li class="holdingLi blueish"><p class="sellLiSmall">Symbol</p><p class="sellLiBig" style="font-size:20px;">Name</p><p class="sellLiSmall">Volume</p><p class="sellLi">Puchased</p><p class="sellLi">Basis</p><p class="sellLi">Current Price</p></li>');
 
     for(k=0; k < userHoldings.length; k++){
       var ownedStock = userHoldings[k];

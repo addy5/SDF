@@ -321,7 +321,10 @@ a {
   text-align: left;
   font-size: 24px;
   margin: 10px 0;
+  height: 30px;
 }
+
+
 
 /*.holdingLi:after {
   content:"";
@@ -342,13 +345,15 @@ a {
   text-align: center;
   background-color:white;
   padding: 30px;
+  list-style: none;
 }
 
 .userHoldings{
   text-align:center;
-  height: 35px;
-  line-height: 35px;
   padding: 0;
+  position: relative;
+  overflow:scroll;
+  height: 460px;
 }
 
 .blueish{
