@@ -484,7 +484,7 @@ $(document).ready(function() {
               originalPrice : stock.price
               });
       user.currentBalance = user.currentBalance + parseFloat(tickerStockObjects[stock.symbol]) * parseFloat(stock.volume);
-      console.log(user.currentBalance);
+      // console.log(user.currentBalance);
       }); //END LOOP THROUGH USERS STOCK
       historyLog.push([today,user.currentBalance]);
       drawSummaryLine(historyLog);
@@ -620,24 +620,27 @@ $(document).ready(function() {
     sale.oddLotFee = totalSellOddLotFee.text();
     sale.net = totalSellNet.text();
     console.log(sale);
+    sendSellRequest(sale);
   });
 
-  // AJAX REQUEST TO PATCH USER'S HOLDINGS (SELL):
-  // $.ajax({
-  //   method: "patch",
-  //   url: "/users/sale", //WILL BE USING TOKEN TO FIND USER
-  //   data: JSON.stringify( {purchase: purchase} ),
-  //   contentType: 'application/json; charset=UTF-8',
-  //   dataType : 'json',
-  //   success: function(data){
-  //
-  //       //REDIRECT IF SERVER RESPONSE HAS REDIRECT KEY:
-  //       if(data.redirect){
-  //           window.location.href = data.redirect;
-  //       }
-  //   } //CLOSE AJAX SUCCESS FUNCTION
-  // }); // CLOSE AJAX PATCH REQUEST TO USER'S HOLDINGS
 
+  function sendSellRequest(stock){
+  // AJAX REQUEST TO PATCH USER'S HOLDINGS (SELL):
+    $.ajax({
+      method: "patch",
+      url: "/users/sale", //WILL BE USING TOKEN TO FIND USER
+      data: JSON.stringify( {sell: stock} ),
+      contentType: 'application/json; charset=UTF-8',
+      dataType : 'json',
+      success: function(data){
+        console.log(data);
+          //REDIRECT IF SERVER RESPONSE HAS REDIRECT KEY:
+          if(data.redirect){
+              window.location.href = data.redirect;
+          }
+      } //CLOSE AJAX SUCCESS FUNCTION
+    }); // CLOSE AJAX PATCH REQUEST TO USER'S HOLDINGS
+  }
 
 
 }); //CLOSE JQUERY ON PAGE LOAD FUNCTION

@@ -113,24 +113,6 @@ input{
 }
 
 /* ------------loading icon animation------------------ */
-.spinner {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-left: -50px; /* half width of the spinner gif */
-    margin-top: -50px; /* half height of the spinner gif */
-    text-align:center;
-    z-index:1234;
-    overflow: auto;
-    width: 100px; /* width of the spinner gif */
-    height: 102px; /*hight of the spinner gif +2px to fix IE8 issue */
-}
-
-.header{
-  border-bottom: 1px solid grey;
-  padding-bottom: 10px;
-  width: 12%;
-}
 
 .summaryTitle{
   /*border-bottom: 1px solid grey;*/
@@ -193,6 +175,10 @@ input{
   z-index:5;
   padding: 40px 0;
   text-align: center;
+}
+
+.sellInvoice{
+  display: none;
 }
 
 .modalLine{

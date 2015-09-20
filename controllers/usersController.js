@@ -49,7 +49,7 @@ function createUser(req,res){
       }
     }
     //CREATE TOKEN NOW THAT USER FOUND AND PW CLEARS:
-    console.log('user found and password verified, creating token..');
+    console.log('user created successfully, creating token..');
     var token = jwt.sign({
       email: user.email,
       firstName: user.firstName },
@@ -191,14 +191,59 @@ function updateUser(req,res){
           }
           user.balance = user.balance - invoice;
           user.holdings.push(req.body.purchase);
-        }
+        } // END PURCHASE SAVE FUNCTION
 
-        if(req.body.history) user.history = req.body.history;
+        if(req.body.sell){
+          var holdingToSell;
+          var holdingNumber;
+
+          //LOCATE SPECIFIC STOCK TO BE SOLD:
+          for(var h=0; h < user.holdings.length; h++){
+
+            holdingToSell = user.holdings[h];
+
+            if( holdingToSell.date === req.body.sell.originalBuyDate && holdingToSell.price === req.body.sell.originalBuyPrice && holdingToSell.symbol === req.body.sell.symbol){
+
+            holdingNumber = h;
+            h = user.holdings.length;
+
+              if( parseInt(req.body.sell.shares) > parseInt(holdingToSell.volume)){
+                res.json({message: 'error', redirect:"/map"});
+              }
+
+              //PARSE PURCHASE OBJECT FIGURES TO UPDATE USER INFO:
+              var netSale =  req.body.sell.net.replace('$','');
+              var salePrice = parseFloat(netSale);
+              var newVolume = (parseInt(holdingToSell.volume) - parseInt(req.body.sell.shares)).toString();
+              console.log(newVolume);
+
+              // MODIFY USER:
+              user.balance = user.balance + salePrice;
+              // user.holdings[holdingNumber].volume = ( parseInt(user.holdings[holdingNumber].volume) - parseInt(req.body.sell.shares) ).toString();
+              user.holdings.push({
+                symbol: holdingToSell.symbol,
+                name: holdingToSell.name,
+                price: holdingToSell.price,
+                volume: newVolume,
+                subTotal: holdingToSell.subTotal,
+                tradeFee: holdingToSell.tradeFee,
+                oddLotFee: holdingToSell.oddLotFee,
+                totalFees: holdingToSell.totalFees,
+                date: holdingToSell.date
+              });
+
+              user.holdings.splice(holdingNumber,1);
+
+            } // END STORING SPECIFIC STOCK TO SELL
+          } //END LOOP THROUGH USE HOLDINGS SEARCH FOR SPECIFIC STOCK
+
+        } //END IF THERE IS A SELL REQUEST
+
 
         //SAVE UPDATED USER INFORMATION:
         user.save(function(err){
           if(err) res.send(err);
-          res.json({message: 'successfully updated', redirect:"/map"});
+          res.json({message: 'successfully updated', redirect: '/map', user:user});
         });
       });
 
