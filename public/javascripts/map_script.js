@@ -623,6 +623,12 @@ $(document).ready(function() {
     sendSellRequest(sale);
   });
 
+  cancelSell.on('click', function(){
+    sellInvoice.hide();
+    background.fadeOut('slow');
+    sellModal.fadeOut('slow');
+    sellInput.val("");
+  });
 
   function sendSellRequest(stock){
   // AJAX REQUEST TO PATCH USER'S HOLDINGS (SELL):
