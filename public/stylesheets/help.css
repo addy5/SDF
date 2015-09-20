@@ -1,6 +1,7 @@
 body{
   text-align: center;
   font-family: 'Abel', sans-serif;
+  position: relative;
 }
 ul {
   list-style-type: none;
@@ -207,4 +208,30 @@ input{
   border-radius: 5px;
   border: none;
   margin: 10px 10px 30px 17%;
+}
+
+.messageConfirm{
+  width: 40%;
+  height: 140px;
+  position: absolute;
+  bottom: 240px;
+  background: rgba(255,255,255,0.9);
+  left: 50%;
+  margin-left: -20%;
+  z-index: 3;
+  text-align: center;
+  font-size: 28px;
+  line-height: 30px;
+  padding-top: 60px;
+  display: none;
+}
+
+.backgroundModal{
+  width:100%;
+  top:0;
+  bottom:0;
+  position: absolute;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 2;
+  display: none;
 }

@@ -51,6 +51,7 @@
         </div>
 
       </div>
+      
       <p class="slideControl1">1</p>
       <p class="slideControl2">2</p>
       <p class="slideControl3">3</p>
@@ -76,19 +77,23 @@
             <hr>
             <div class="contact">
               <label>Name</label><br>
-              <input class="messageInput" type="text" >
+              <input class="messageInput guestName" type="text" >
             </div>
             <div class="contact">
               <label>Email</label><br>
-              <input class="messageInput" type="text" >
+              <input class="messageInput guestEmail" type="text" >
             </div>
             <div class="contact">
               <label>Message</label><br>
-              <textarea class="messageBox" type="text"></textarea>
+              <textarea class="messageBox guestMessage" type="text"></textarea>
             </div>
-            <button type="button"> Submit </button>
+            <button type="button" class="submitMessage"> Submit </button>
           </div>
       </div>
+
+      <!-- CONFIRM MESSAGE MODALS: -->
+      <div class="messageConfirm"></div>
+      <div class="backgroundModal"></div>
 
       <!-- FOOTER -->
       <div class="footer">
