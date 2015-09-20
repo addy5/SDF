@@ -198,7 +198,7 @@ $(document).ready(function() {
       url: "/users/placeholder", //WILL BE USING TOKEN TO FIND USER IN CONTROLLER
       success: function(data){
         user = data;
-        balance.text('$' + data.balance);
+        balance.text('$' + data.balance.toFixed(2));
         console.log(user);
 
         if(user.holdings.length === 0){
@@ -508,7 +508,7 @@ $(document).ready(function() {
       }
 
       $('.userCurrent').text('$' +  Math.round(user.currentBalance * 100) / 100);
-      $('.userCash').text('$' + user.balance);
+      $('.userCash').text('$' + user.balance.toFixed(2));
   } //END LOGSTOCK FUNCTION TO SAVE EOD BALANCE TO HISTORY
 
   var holdingsUl = $('.userHoldings');
@@ -600,11 +600,11 @@ $(document).ready(function() {
     totalSellOddLot.text('Odd Lot Charge');
     totalSellOddLotFee.text('$' + sellOddLot);
     totalSellTag.text('Total');
-    totalSellNet.text('$' + (sellGross + sellTradeFees + sellOddLot).toFixed(2));
+    totalSellNet.text('$' + (sellGross - sellTradeFees - sellOddLot).toFixed(2));
   }
 
-  setTimeout(userSummaryOfFund,2000);
-  setTimeout(appendHoldings,2000);
+  setTimeout(userSummaryOfFund,3000);
+  setTimeout(appendHoldings,3000);
 
   var confirmSell = $('.confirmSell');
   var cancelSell = $('.cancelSell');
