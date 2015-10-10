@@ -518,8 +518,12 @@ $(document).ready(function() {
 
     for(k=0; k < userHoldings.length; k++){
       var ownedStock = userHoldings[k];
-      holdingsUl.append('<li class="holdingLi">' + '<p class="sellLiSmall sellSymbol">'+ ownedStock.symbol + '</p>' + '<p class="sellLiBig sellName">'+ ownedStock.name + '</p>' + '<p class="sellLiSmall sellVolume">'+ ownedStock.volume + '</p>'+ '<p class="sellLi originalDate">'+ ownedStock.originalDate + '<p class="sellLi originalPrice">'+ (parseFloat(ownedStock.originalPrice)).toFixed(2) + '</p>' + '<p class="sellLi sellPrice">$' + tickerStockObjects[user.holdings[k].symbol] + '</p><button class="sellStock"> Sell </button></li>');
-    }
+
+      if(ownedStock.volume != 0){
+        holdingsUl.append('<li class="holdingLi">' + '<p class="sellLiSmall sellSymbol">'+ ownedStock.symbol + '</p>' + '<p class="sellLiBig sellName">'+ ownedStock.name + '</p>' + '<p class="sellLiSmall sellVolume">'+ ownedStock.volume + '</p>'+ '<p class="sellLi originalDate">'+ ownedStock.originalDate + '<p class="sellLi originalPrice">'+ (parseFloat(ownedStock.originalPrice)).toFixed(2) + '</p>' + '<p class="sellLi sellPrice">$' + tickerStockObjects[user.holdings[k].symbol] + '</p><button class="sellStock"> Sell </button></li>');
+      }
+      
+    } //END LOOP THROUGH USERS STOCK AND APPEND THEM TO HOLDINGS LIST
     sellListener();
   }
 
